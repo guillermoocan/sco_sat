@@ -97,7 +97,7 @@ class ICM20948:
     def __init__(self, i2c):
     
         self._bus = i2c
-        self._bank = -1
+        self._bank = 0
         self._addr = ICM_ADDRESS
 
         self._acc_bias = [0.0,0.0,0.0] # acc bias
