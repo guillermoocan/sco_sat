@@ -1,4 +1,4 @@
-from smbus2 import SMBus, i2c_msg
+from smbus2 import SMBus
 from struct import unpack_from
 import time
 import sys
@@ -97,7 +97,7 @@ class ICM20948:
     def __init__(self, i2c):
     
         self._bus = i2c
-        self._bank = 0
+        self._bank = -1
         self._addr = ICM_ADDRESS
 
         self._acc_bias = [0.0,0.0,0.0] # acc bias
@@ -309,47 +309,31 @@ class ICM20948:
     def read(self, bank, reg, length=1):
         self.bank(bank)
 
-        write_msg = i2c_msg.write(
-            self._addr,
-            [reg]
-        )
-
-        read_msg = i2c_msg.read(
-            self._addr,
-            length
-        )
-
-        self._bus.i2c_rdwr(write_msg, read_msg)
-
-        data = bytearray(read_msg)
-
         if length == 1:
-            return data[0]
-
-        return data
-
-
+            return self._bus.read_byte_data(self._addr, reg)
+        else:
+            data = self._bus.read_i2c_block_data(
+                self._addr,
+                reg,
+                length
+            )
+            return bytearray(data)
+        
     def write(self, bank, reg, value):
         self.bank(bank)
-
-        write_msg = i2c_msg.write(
+        self._bus.write_byte_data(
             self._addr,
-            [reg, value]
+            reg,
+            value
         )
-
-        self._bus.i2c_rdwr(write_msg)
-
 
     def bank(self, bank):
         if self._bank != bank:
-
-            write_msg = i2c_msg.write(
+            self._bus.write_byte_data(
                 self._addr,
-                [ICM_BANK_SEL, bank << 4]
+                ICM_BANK_SEL,
+                bank << 4
             )
-
-            self._bus.i2c_rdwr(write_msg)
-
             self._bank = bank
             
     def reg_config(self, bank, reg, ctrl, enable=True): # Permite escribir en una sección particular del registro sin afectar el resto de bytes del mismo. 
