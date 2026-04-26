@@ -117,8 +117,8 @@ class ICM20948:
 
         if self.read(0, ICM_WHO_AM_I) != ICM_CHIP_ID:
             raise RuntimeError("Unable to find ICM20948")
-        #else:
-            #print("Accelerometer and gyrscope found")
+        else:
+            print("Accelerometer and gyrscope found")
     
         #Primer paso: Reseteamos el chip 
         self.reg_config(0,ICM_PWR_MGMT_1, ICM_PWR_MGMT_1_RESET, True) 
@@ -148,8 +148,8 @@ class ICM20948:
     
         if self.read(0, ICM_EXT_SLV_SENS_DATA_00)  != AK_CHIP_ID:
             print( "Magnetometer not found")
-        #else :
-            #print("Magnetometer found ")
+        else :
+            print("Magnetometer found ")
 
         self.slave0_config_write(AK_I2C_ADDR, AK_CNTL3, 1, AK_CNTL3_RESET) # Mandamos el reset al magnetómetro
         self.slave0_config_read(AK_I2C_ADDR, AK_CNTL3, 1) # Mandamos el reset al magnetómetro
