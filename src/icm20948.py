@@ -1,4 +1,4 @@
-from smbus2 import SMBus
+from smbus2 import SMBus, i2c_msg
 from struct import unpack_from
 import time
 import sys
