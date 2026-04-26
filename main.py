@@ -1,55 +1,16 @@
 from smbus2 import SMBus
-import time
 
-I2C_BUS = 1
-ADDR = 0x69
-
-# Registros típicos ICM-20948
-REG_BANK_SEL = 0x7F
-WHO_AM_I = 0x00
-
-def select_bank(bus, bank):
-    bus.write_byte_data(ADDR, REG_BANK_SEL, bank << 4)
-
-with SMBus(I2C_BUS) as bus:
-    try:
-        # Banco 0
-        select_bank(bus, 0)
-
-        who = bus.read_byte_data(ADDR, WHO_AM_I)
-
-        print(f"WHO_AM_I: 0x{who:02X}")
-
-        if who == 0xEA:
-            print("Detectado: ICM-20948")
-        else:
-            print("Dispositivo detectado, pero no coincide con ICM-20948")
-
-    except Exception as e:
-        print("Error:", e)
-
-        
+from src.adcs import ADCS
+from src.icm20948 import ICM20948
+from src.utilities import r2rpy, q2r
 
 
 
+#w=[0.5,0.5]
 
+bus = SMBus(1)
+imu = ICM20948(bus)
 
-# from machine import Pin, I2C
-# from utime import sleep_ms, ticks_us
-
-# from src.adcs import ADCS
-# from src.icm20948 import ICM20948
-# from src.utilities import r2rpy, q2r
-
-
-# I2C0_SDA = Pin(4)
-# I2C0_SCL = Pin(5)
-
-# w=[0.5,0.5]
-
-# bus = I2C(0, sda=I2C0_SDA, scl=I2C0_SCL, freq = 400_000)
-
-# imu = ICM20948(bus)
 # sat = ADCS()
 
 # imu.acc_cal()
@@ -69,7 +30,9 @@ with SMBus(I2C_BUS) as bus:
 
 # t0 = ticks_us()
 
-# while True :
+while True :
+
+    imu.send_imu()
 
 #     sat.set_b_v1(imu.acc())
 #     sat.set_b_v2(imu.mag())

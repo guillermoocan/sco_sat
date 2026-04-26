@@ -1,9 +1,7 @@
-from machine import Pin, I2C
-from ustruct import unpack_from
+from smbus2 import SMBus
+from struct import unpack_from
+import time
 import sys
-
-from utime import sleep_ms, ticks_ms, ticks_us, ticks_diff, localtime
-
 
 LIBNAME = "ICM20948"
 
@@ -86,6 +84,12 @@ AK_CNTL2_MODE_TEST = 16
 AK_CNTL3 = 0x32
 AK_CNTL3_RESET = 0x01
 
+def sleep_ms(ms):
+    time.sleep(ms / 1000)
+
+def ticks_us():
+    return time.time_ns() // 1000
+
 
 class ICM20948:
 
@@ -93,7 +97,7 @@ class ICM20948:
     def __init__(self, i2c):
     
         self._bus = i2c
-        self._bank = 0
+        self._bank = -1
         self._addr = ICM_ADDRESS
 
         self._acc_bias = [0.0,0.0,0.0] # acc bias
@@ -249,7 +253,7 @@ class ICM20948:
         self._mag = mx_d, my_d, mz_d
         return self._mag
     
-    def acc_cal(self,timeout=20000):
+    def acc_cal(self,timeout=2000):
         acc_bias = [0.0,0.0,0.0]
         it=0
         lasttime = ticks_us()
@@ -259,12 +263,13 @@ class ICM20948:
             acc_bias[1] += ay
             acc_bias[2] += az
             it += 1
+            sleep_ms(1)
         self._acc_bias[0] = (acc_bias[0] / it) 
         self._acc_bias[1] = (acc_bias[1] / it) 
         self._acc_bias[2] = (acc_bias[2] / it) - 1.0
 
 
-    def gyr_cal(self,timeout=20000):
+    def gyr_cal(self,timeout=2000):
 
         gyr_bias = [0.0,0.0,0.0]
         ite=0
@@ -275,12 +280,13 @@ class ICM20948:
             gyr_bias[1] += gy
             gyr_bias[2] += gz
             ite += 1
+            sleep_ms(1)
         self._gyr_bias[0] = (gyr_bias[0] / ite) 
         self._gyr_bias[1] = (gyr_bias[1] / ite) 
         self._gyr_bias[2] = (gyr_bias[2] / ite)
 
 
-    def gyr_cal_b(self,timeout=20000):
+    def gyr_cal_b(self,timeout=2000):
 
         gyr_bias = [0.0,0.0,0.0]
         ite=0
@@ -291,6 +297,7 @@ class ICM20948:
             gyr_bias[1] += gy
             gyr_bias[2] += gz
             ite += 1
+            sleep_ms(1)
         gyr_bias[0] = (gyr_bias[0] / ite) 
         gyr_bias[1] = (gyr_bias[1] / ite) 
         gyr_bias[2] = (gyr_bias[2] / ite)
@@ -299,26 +306,34 @@ class ICM20948:
 
 
 
-    def read(self, bank, reg, length=1): # Length es un parámetro opcional
-        self.bank(bank) # Asignamos el banco
-        rw_buffer = bytearray(length) #Creamos un buffer de bytes
-        self._bus.readfrom_mem_into(self._addr, reg , rw_buffer) #Leemos los bytes, esta función pone los bytes en el buffer
-        if length == 1 :
-            return rw_buffer[0]
-        else :
-            return rw_buffer
+    def read(self, bank, reg, length=1):
+        self.bank(bank)
+
+        if length == 1:
+            return self._bus.read_byte_data(self._addr, reg)
+        else:
+            data = self._bus.read_i2c_block_data(
+                self._addr,
+                reg,
+                length
+            )
+            return bytearray(data)
         
     def write(self, bank, reg, value):
         self.bank(bank)
-        rw_buffer = bytearray(1)
-        rw_buffer[0]=value
-        self._bus.writeto_mem(self._addr, reg, rw_buffer)
+        self._bus.write_byte_data(
+            self._addr,
+            reg,
+            value
+        )
 
     def bank(self, bank):
-        if not self._bank == bank:
-            rw_buffer = bytearray(1)
-            rw_buffer[0]=bank << 4
-            self._bus.writeto_mem(self._addr, ICM_BANK_SEL, rw_buffer) # ICM_BANK_SEL es un registro compartido entre los bancos
+        if self._bank != bank:
+            self._bus.write_byte_data(
+                self._addr,
+                ICM_BANK_SEL,
+                bank << 4
+            )
             self._bank = bank
             
     def reg_config(self, bank, reg, ctrl, enable=True): # Permite escribir en una sección particular del registro sin afectar el resto de bytes del mismo. 
@@ -371,3 +386,4 @@ class ICM20948:
         )
 
         sys.stdout.write(line)
+        sys.stdout.flush()
