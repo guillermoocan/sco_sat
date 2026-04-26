@@ -36,7 +36,7 @@ while True :
 
     imu.send_imu()
 
-    time.sleep(0.01) 
+    time.sleep(0.1) 
 
 
 #     sat.set_b_v1(imu.acc())
