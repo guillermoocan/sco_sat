@@ -6,8 +6,6 @@ from src.utilities import r2rpy, q2r
 
 import time
 
-
-
 w=[0.5,0.5]
 
 bus = SMBus(1)

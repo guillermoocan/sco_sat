@@ -309,31 +309,47 @@ class ICM20948:
     def read(self, bank, reg, length=1):
         self.bank(bank)
 
+        write_msg = i2c_msg.write(
+            self._addr,
+            [reg]
+        )
+
+        read_msg = i2c_msg.read(
+            self._addr,
+            length
+        )
+
+        self._bus.i2c_rdwr(write_msg, read_msg)
+
+        data = bytearray(read_msg)
+
         if length == 1:
-            return self._bus.read_byte_data(self._addr, reg)
-        else:
-            data = self._bus.read_i2c_block_data(
-                self._addr,
-                reg,
-                length
-            )
-            return bytearray(data)
-        
+            return data[0]
+
+        return data
+
+
     def write(self, bank, reg, value):
         self.bank(bank)
-        self._bus.write_byte_data(
+
+        write_msg = i2c_msg.write(
             self._addr,
-            reg,
-            value
+            [reg, value]
         )
+
+        self._bus.i2c_rdwr(write_msg)
+
 
     def bank(self, bank):
         if self._bank != bank:
-            self._bus.write_byte_data(
+
+            write_msg = i2c_msg.write(
                 self._addr,
-                ICM_BANK_SEL,
-                bank << 4
+                [ICM_BANK_SEL, bank << 4]
             )
+
+            self._bus.i2c_rdwr(write_msg)
+
             self._bank = bank
             
     def reg_config(self, bank, reg, ctrl, enable=True): # Permite escribir en una sección particular del registro sin afectar el resto de bytes del mismo. 
