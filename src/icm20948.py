@@ -1,4 +1,4 @@
-from smbus2 import SMBus
+from smbus2 import SMBus, i2c_msg
 from struct import unpack_from
 import time
 import sys
@@ -305,7 +305,6 @@ class ICM20948:
         return gyr_bias
 
 
-
     def read(self, bank, reg, length=1):
         self.bank(bank)
 
@@ -328,12 +327,17 @@ class ICM20948:
         )
 
     def bank(self, bank):
+        if bank == 0 and self._bank == -1:
+            self._bank = 0
+            return
+
         if self._bank != bank:
-            self._bus.write_byte_data(
+            write_msg = i2c_msg.write(
                 self._addr,
-                ICM_BANK_SEL,
-                bank << 4
+                [ICM_BANK_SEL, bank << 4]
             )
+
+            self._bus.i2c_rdwr(write_msg)
             self._bank = bank
             
     def reg_config(self, bank, reg, ctrl, enable=True): # Permite escribir en una sección particular del registro sin afectar el resto de bytes del mismo. 
@@ -344,7 +348,7 @@ class ICM20948:
         else :
             value &= ~ctrl
         self.write(bank, reg, value)
- 
+
     def slave0_config_write(self, address, reg, length, data):
         self.write(3, ICM_I2C_SLV0_ADDR, address) # Asignamos la dirección del magnetómetro
         self.write(3, ICM_I2C_SLV0_REG, reg)
