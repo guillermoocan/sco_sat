@@ -4,6 +4,8 @@ from src.adcs import ADCS
 from src.icm20948 import ICM20948
 from src.utilities import r2rpy, q2r
 
+import time
+
 
 
 #w=[0.5,0.5]
@@ -33,6 +35,9 @@ imu = ICM20948(bus)
 while True :
 
     imu.send_imu()
+
+    time.sleep(0.01) 
+
 
 #     sat.set_b_v1(imu.acc())
 #     sat.set_b_v2(imu.mag())
