@@ -225,7 +225,6 @@ class ICM20948:
 
         return self._gyr
     
-
     #Read magnetometer data straight for slave DATA_01 (linked to AK_HXL)
     def mag(self):
 
@@ -308,17 +307,22 @@ class ICM20948:
     def read(self, bank, reg, length=1):
         self.bank(bank)
 
+        # seleccionar registro
         write_msg = i2c_msg.write(
             self._addr,
             [reg]
         )
+        self._bus.i2c_rdwr(write_msg)
 
+        # pequeña pausa
+        sleep_ms(1)
+
+        # leer datos
         read_msg = i2c_msg.read(
             self._addr,
             length
         )
-
-        self._bus.i2c_rdwr(write_msg, read_msg)
+        self._bus.i2c_rdwr(read_msg)
 
         data = bytearray(read_msg)
 
