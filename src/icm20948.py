@@ -1,4 +1,4 @@
-from smbus2 import SMBus, i2c_msg
+from smbus2 import SMBus
 from struct import unpack_from
 import time
 import sys
@@ -225,6 +225,7 @@ class ICM20948:
 
         return self._gyr
     
+
     #Read magnetometer data straight for slave DATA_01 (linked to AK_HXL)
     def mag(self):
 
@@ -307,54 +308,31 @@ class ICM20948:
     def read(self, bank, reg, length=1):
         self.bank(bank)
 
-        # seleccionar registro
-        write_msg = i2c_msg.write(
-            self._addr,
-            [reg]
-        )
-        self._bus.i2c_rdwr(write_msg)
-
-        # pequeña pausa
-        sleep_ms(1)
-
-        # leer datos
-        read_msg = i2c_msg.read(
-            self._addr,
-            length
-        )
-        self._bus.i2c_rdwr(read_msg)
-
-        data = bytearray(read_msg)
-
         if length == 1:
-            return data[0]
-
-        return data
-
-
+            return self._bus.read_byte_data(self._addr, reg)
+        else:
+            data = self._bus.read_i2c_block_data(
+                self._addr,
+                reg,
+                length
+            )
+            return bytearray(data)
+        
     def write(self, bank, reg, value):
         self.bank(bank)
-
-        write_msg = i2c_msg.write(
+        self._bus.write_byte_data(
             self._addr,
-            [reg, value]
+            reg,
+            value
         )
 
-        self._bus.i2c_rdwr(write_msg)
-
-
     def bank(self, bank):
-        if bank == 0 and self._bank == -1:
-            self._bank = 0
-            return
-
         if self._bank != bank:
-            write_msg = i2c_msg.write(
+            self._bus.write_byte_data(
                 self._addr,
-                [ICM_BANK_SEL, bank << 4]
+                ICM_BANK_SEL,
+                bank << 4
             )
-
-            self._bus.i2c_rdwr(write_msg)
             self._bank = bank
             
     def reg_config(self, bank, reg, ctrl, enable=True): # Permite escribir en una sección particular del registro sin afectar el resto de bytes del mismo. 
