@@ -122,7 +122,7 @@ class ICM20948:
     
         #Primer paso: Reseteamos el chip 
         self.reg_config(0,ICM_PWR_MGMT_1, ICM_PWR_MGMT_1_RESET, True) 
-        sleep_ms(10)
+        sleep_ms(100)
 
         #Segundo paso: Asignamos reloj. En ese caso, vamos a asignar el auto clock para que elija el reloj interno. 
 
@@ -150,7 +150,7 @@ class ICM20948:
             print( "Magnetometer not found")
         else :
             print("Magnetometer found ")
-
+        sleep_ms(100)
         self.slave0_config_write(AK_I2C_ADDR, AK_CNTL3, 1, AK_CNTL3_RESET) # Mandamos el reset al magnetómetro
         self.slave0_config_read(AK_I2C_ADDR, AK_CNTL3, 1) # Mandamos el reset al magnetómetro
         while self.read(0, ICM_EXT_SLV_SENS_DATA_00) == 0x01: # Permanece hasta que se haya reseteado
