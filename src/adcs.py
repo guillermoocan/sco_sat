@@ -1,7 +1,6 @@
 
 from math import atan2, sqrt, cos, sin, pi
 from src.utilities import *
-from utime import ticks_us
 
 class ADCS():
 
