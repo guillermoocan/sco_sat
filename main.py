@@ -8,45 +8,45 @@ import time
 
 
 
-#w=[0.5,0.5]
+w=[0.5,0.5]
 
 bus = SMBus(1)
 imu = ICM20948(bus)
 
-# sat = ADCS()
+sat = ADCS()
 
-# imu.acc_cal()
-# sat.set_b_est(imu.gyr_cal_b())
+imu.acc_cal()
+sat.set_b_est(imu.gyr_cal_b())
 
-# sat.set_i_v1([0.0,0.0,1.0])
-# sat.set_i_v2([26.9282,-1.8438,-28.6434])
+sat.set_i_v1([0.0,0.0,1.0])
+sat.set_i_v2([26.9282,-1.8438,-28.6434])
 
-# sat.set_b_v1(imu.acc())
-# sat.set_b_v2(imu.mag())
-# sat.set_rate(imu.gyr())
+sat.set_b_v1(imu.acc())
+sat.set_b_v2(imu.mag())
+sat.set_rate(imu.gyr())
 
-# sat.set_w_est(sat.rate)
+sat.set_w_est(sat.rate)
 
-# sat.quest(w)
-# sat.set_rpy_est(r2rpy(q2r(sat.q_est)))
+sat.quest(w)
+sat.set_rpy_est(r2rpy(q2r(sat.q_est)))
 
-# t0 = ticks_us()
+t0 = time.perf_counter()
 
 while True :
 
-    imu.send_imu()
+    #imu.send_imu()
 
     time.sleep(0.03) 
 
 
-#     sat.set_b_v1(imu.acc())
-#     sat.set_b_v2(imu.mag())
-#     sat.set_rate(imu.gyr())
+    sat.set_b_v1(imu.acc())
+    sat.set_b_v2(imu.mag())
+    sat.set_rate(imu.gyr())
 
 
-#     t1 = ticks_us()
-#     dt = (t1 - t0)*1e-6
-#     t0 = t1
+    t1 = time.perf_counter()
+    dt = t1 - t0
+    t0 = t1
 
 #     # #TRIAD
 
@@ -61,9 +61,9 @@ while True :
 
 #     #SMEKF
 
-#     sat.smekf(dt)
-#     sat.set_rpy_est(r2rpy(q2r(sat.q_est)))
-#     sat.send_rpy()
+    sat.smekf(dt)
+    sat.set_rpy_est(r2rpy(q2r(sat.q_est)))
+    sat.send_rpy()
 
 
 
