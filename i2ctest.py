@@ -32,4 +32,5 @@ from smbus2 import SMBus
 
 with SMBus(1) as bus:
     print(hex(bus.read_byte_data(0x69, 0x00)))
+
     
