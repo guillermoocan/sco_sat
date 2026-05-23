@@ -80,15 +80,15 @@ pi.set_PWM_frequency(PWM_PIN, 10000)
 pi.set_PWM_range(PWM_PIN, 255)
 
 print("25%")
-pi.set_PWM_dutycycle(PWM_PIN, 20)
+pi.set_PWM_dutycycle(PWM_PIN, 40)
 time.sleep(3)
 
 print("50%")
-pi.set_PWM_dutycycle(PWM_PIN, 30)
+pi.set_PWM_dutycycle(PWM_PIN, 45)
 time.sleep(3)
 
 print("75%")
-pi.set_PWM_dutycycle(PWM_PIN, 40)
+pi.set_PWM_dutycycle(PWM_PIN, 50)
 time.sleep(3)
 
 print("STOP")
