@@ -1,12 +1,5 @@
 
 #include "qmc5883l.h"
-#include <stdio.h>
-#include <string.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <linux/i2c-dev.h>
-#include <sys/ioctl.h>
-#include <math.h>
 
 
 static float D[3][3] ={{0.9854f, -0.0133f, -0.0172f},{-0.0133f, 1.0653f, 0.0009f}, {-0.0172f, 0.0009f, 0.9531f}};
@@ -127,7 +120,7 @@ int QMC5883L_Calibrate(QMC5883L_Type *qmc, const char *filename, uint32_t sample
 
     fprintf(fp, "mx,my,mz\n");
     printf("\rCalulando calibracion");
-    
+
     for (uint32_t i = 0; i < samples; i++)
     {
         if (QMC5883L_ReadRegs(qmc, QMC5883L_DATA_OUTPUT_X_LSB, qmc->field_raw, 6))

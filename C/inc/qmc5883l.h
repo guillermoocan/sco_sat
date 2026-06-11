@@ -2,6 +2,13 @@
 #define QMC5883L_H
 
 #include <stdint.h>
+#include <stdio.h>
+#include <string.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <linux/i2c-dev.h>
+#include <sys/ioctl.h>
+#include <math.h>
 
 #define QMC5883L_ADDRESS 0x0D
 
