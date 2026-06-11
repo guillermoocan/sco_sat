@@ -26,6 +26,10 @@ A = A / k
 
 eigval, eigvec = np.linalg.eigh(A)
 
+print("eigval =", eigval)
+print("A =")
+print(A)
+
 Dcal = eigvec @ np.diag(np.sqrt(eigval)) @ eigvec.T
 
 print("\nstatic float b[3] = {")
