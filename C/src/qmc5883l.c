@@ -8,11 +8,9 @@
 #include <sys/ioctl.h>
 #include <math.h>
 
-static float D[3][3] ={{1.0f, 0.0f, 0.0f},{0.0f, 1.0f, 0.0f},{0.0f, 0.0f, 1.0f}};
-static float b[3] = {0.0f, 0.0f, 0.0f};
 
-// static float D[3][3] ={{0.9854f, -0.0133f, -0.0172f},{-0.0133f, 1.0653f, 0.0009f}, {-0.0172f, 0.0009f, 0.9531f}};
-// static float b[3] = {0.1738f, -0.0701f, -0.2817f};
+static float D[3][3] ={{0.9854f, -0.0133f, -0.0172f},{-0.0133f, 1.0653f, 0.0009f}, {-0.0172f, 0.0009f, 0.9531f}};
+static float b[3] = {0.1738f, -0.0701f, -0.2817f};
 
 
 static int QMC5883L_WriteReg(QMC5883L_Type *qmc, uint8_t reg, uint8_t value)
@@ -142,15 +140,11 @@ int QMC5883L_Calibrate(QMC5883L_Type *qmc, const char *filename, uint32_t sample
         qmc->field[1] = (float)qmc->field_raw_16[1] ;
         qmc->field[2] = (float)qmc->field_raw_16[2] ;
 
-        fprintf(fp, "%.8f,%.8f,%.8f\n",
-                qmc->field[0],
-                qmc->field[1],
-                qmc->field[2]);
+        fprintf(fp, "%.8f,%.8f,%.8f\n",qmc->field[0],qmc->field[1],qmc->field[2]);
 
         usleep(period_us);
 
-        if ((i % 100) == 0)
-            printf("\rMuestras: %u/%u", i, samples);
+        if ((i % 100) == 0)printf("\rMuestras: %u/%u", i, samples);
     }
 
     printf("\rMuestras: %u/%u\n", samples, samples);
