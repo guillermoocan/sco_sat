@@ -66,10 +66,12 @@ A = (eigvec @ np.diag(np.sqrt(eigval)) @ eigvec.T)
 # --- CORRECCIÓN DE expMFS ---
 # Escalamos los datos con la nueva matriz A
 X = data - bias
-Xcal = (A @ X.T).T
+
+mag = np.linalg.norm(X, axis=1)
+#Xcal = (A @ X.T).T
 
 # Ahora la magnitud de Xcal estará normalizada cerca de 1.0
-mag = np.linalg.norm(Xcal, axis=1)
+#mag = np.linalg.norm(Xcal, axis=1)
 
 # Magcal suele definir el expMFS (Expected Magnetic Field Strength) 
 # basándose en el radio de la elipsoide ajustada o revirtiendo la escala.
