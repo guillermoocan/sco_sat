@@ -51,12 +51,14 @@ M = Q
 
 eigval, eigvec = np.linalg.eigh(M)
 
+print(k)
+
 if np.any(eigval <= 0):
     raise RuntimeError(
         f"La cuádrica ajustada no es una elipsoide. eig={eigval}"
     )
 
-A = (eigvec @ np.diag(np.sqrt(eigval)) @ eigvec.T)/np.sqrt(k)
+A = (eigvec @ np.diag(np.sqrt(eigval)) @ eigvec.T)
 
 X = data - bias
 
