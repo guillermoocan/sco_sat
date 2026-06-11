@@ -65,6 +65,8 @@ int QMC5883L_Init(QMC5883L_Type *qmc, int fd_ext, uint8_t address, uint8_t mode,
 
 void QMC5883L_Read(QMC5883L_Type *qmc);
 
+int QMC5883L_Calibrate(QMC5883L_Type *qmc, const char *filename, uint32_t samples, uint32_t period_us);
+
 void QMC5883L_Close(QMC5883L_Type *qmc);
 
 #endif
