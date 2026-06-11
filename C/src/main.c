@@ -38,7 +38,7 @@ int main(void)
 
     printf("QMC5883L detectado\n");
 
-    QMC5883L_Calibrate(&mag, "calibration.csv", 1000, 10000);
+    QMC5883L_Calibrate(&mag, "../data/calibration.csv", 1000, 10000);
 
     // while (1)
     // {

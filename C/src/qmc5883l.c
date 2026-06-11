@@ -139,7 +139,7 @@ int QMC5883L_Calibrate(QMC5883L_Type *qmc, const char *filename, uint32_t sample
         usleep(period_us);
 
         if (i % 100 == 0)
-            printf("\rCMuestra: %u/%u \n", i, samples);
+            printf("\rMuestra: %u/%u \n", i, samples);
         
     }
 
