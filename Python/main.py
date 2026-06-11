@@ -84,7 +84,7 @@ pi.set_PWM_dutycycle(PWM_PIN, 100)
 time.sleep(3)
 
 print("50%")
-pi.set_PWM_dutycycle(PWM_PIN, 128)
+pi.set_PWM_dutycycle(PWM_PIN, 127)
 time.sleep(3)
 
 print("75%")
