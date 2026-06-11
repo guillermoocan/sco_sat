@@ -1,0 +1,1 @@
+/usr/bin/cc -Wl,--dependency-file=CMakeFiles/sat.dir/link.d CMakeFiles/sat.dir/src/main.c.o CMakeFiles/sat.dir/src/mpu6050.c.o CMakeFiles/sat.dir/src/qmc5883l.c.o -o sat  -lm
