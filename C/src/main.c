@@ -33,7 +33,7 @@ int main(void)
     while(1)
     {
         MPU6050_Read(&imu);
-        QMC5883L_Measure_Read(&mag);
+        QMC5883L_Read(&mag);
 
         printf("ID:0x%02X | ACC: %.3f %.3f %.3f | GYRO: %.3f %.3f %.3f | MAG: %.3f %.3f %.3f | |B|: %.3f\n",
                id,
