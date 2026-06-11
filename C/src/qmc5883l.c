@@ -138,9 +138,9 @@ int QMC5883L_Calibrate(QMC5883L_Type *qmc, const char *filename, uint32_t sample
         qmc->field_raw_16[1] = (int16_t)((qmc->field_raw[3] << 8) | qmc->field_raw[2]);
         qmc->field_raw_16[2] = (int16_t)((qmc->field_raw[5] << 8) | qmc->field_raw[4]);
 
-        qmc->field[0] = (float)qmc->field_raw_16[0] 
-        qmc->field[1] = (float)qmc->field_raw_16[1] 
-        qmc->field[2] = (float)qmc->field_raw_16[2] 
+        qmc->field[0] = (float)qmc->field_raw_16[0] ;
+        qmc->field[1] = (float)qmc->field_raw_16[1] ;
+        qmc->field[2] = (float)qmc->field_raw_16[2] ;
 
         fprintf(fp, "%.8f,%.8f,%.8f\n",
                 qmc->field[0],
