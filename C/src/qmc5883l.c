@@ -2,7 +2,7 @@
 #include "qmc5883l.h"
 
 
-// static float D[3][3] ={{0.9854f, -0.0133f, -0.0172f},{-0.0133f, 1.0653f, 0.0009f}, {-0.0172f, 0.0009f, 0.9531f}};
+// static float A[3][3] ={{0.9854f, -0.0133f, -0.0172f},{-0.0133f, 1.0653f, 0.0009f}, {-0.0172f, 0.0009f, 0.9531f}};
 // static float b[3] = {0.1738f, -0.0701f, -0.2817f};
 
 
@@ -105,9 +105,9 @@ void QMC5883L_Read(QMC5883L_Type *qmc)
     f_aux[1] = (float)qmc->field_raw_16[1] / qmc->GAIN_LSB - b[1];
     f_aux[2] = (float)qmc->field_raw_16[2] / qmc->GAIN_LSB - b[2];
 
-    qmc->field[0] = D[0][0] * f_aux[0] + D[0][1] * f_aux[1] + D[0][2] * f_aux[2];
-    qmc->field[1] = D[1][0] * f_aux[0] + D[1][1] * f_aux[1] + D[1][2] * f_aux[2];
-    qmc->field[2] = D[2][0] * f_aux[0] + D[2][1] * f_aux[1] + D[2][2] * f_aux[2];
+    qmc->field[0] = A[0][0] * f_aux[0] + A[0][1] * f_aux[1] + A[0][2] * f_aux[2];
+    qmc->field[1] = A[1][0] * f_aux[0] + A[1][1] * f_aux[1] + A[1][2] * f_aux[2];
+    qmc->field[2] = A[2][0] * f_aux[0] + A[2][1] * f_aux[1] + A[2][2] * f_aux[2];
 
     f_aux[0] = qmc->field[0];
     f_aux[1] = qmc->field[1];
