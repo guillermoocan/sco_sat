@@ -80,7 +80,7 @@ expMFS = np.mean(mag)
 
 # Re-escalamos A para que coincida con el formato de magcal 
 # donde la intensidad del campo se absorbe en la matriz o viceversa:
-A = A * (1/expMFS) 
+A = A *expMFS 
 # -----------------------------
 
 print("Centro:")
