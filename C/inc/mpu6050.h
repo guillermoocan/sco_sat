@@ -51,7 +51,7 @@ typedef struct
 #define MPU6050_RA_ACCEL_XOUT_H 0x3B
 #define MPU6050_RA_GYRO_XOUT_H  0x43
 
-int MPU6050_Init(MPU6050_Type *mpu, int fd_ext, const char *i2c_device, uint8_t address, uint8_t accel_fs, uint8_t gyro_fs);
+int MPU6050_Init(MPU6050_Type *mpu, int fd_ext, uint8_t address, uint8_t accel_fs, uint8_t gyro_fs);
 void MPU6050_Read(MPU6050_Type *mpu);
 void MPU6050_Calibration(MPU6050_Type *mpu);
 void MPU6050_Close(MPU6050_Type *mpu);
