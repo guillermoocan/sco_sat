@@ -38,19 +38,21 @@ int main(void)
 
     printf("QMC5883L detectado\n");
 
-    while (1)
-    {
-        MPU6050_Read(&imu);
-        QMC5883L_Read(&mag);
+    QMC5883L_Calibrate(&mag, "calibration.csv", 1000, 10000);
 
-        printf(" ACC: %.3f %.3f %.3f | GYRO: %.3f %.3f %.3f | MAG: %.3f %.3f %.3f | |B|: %.3f\n",
-            imu.accel[0], imu.accel[1], imu.accel[2],
-            imu.gyro[0], imu.gyro[1], imu.gyro[2],
-            mag.field[0], mag.field[1], mag.field[2],
-            mag.field_mag);
+    // while (1)
+    // {
+    //     MPU6050_Read(&imu);
+    //     QMC5883L_Read(&mag);
 
-        usleep(10000);
-    }
+    //     printf(" ACC: %.3f %.3f %.3f | GYRO: %.3f %.3f %.3f | MAG: %.3f %.3f %.3f | |B|: %.3f\n",
+    //         imu.accel[0], imu.accel[1], imu.accel[2],
+    //         imu.gyro[0], imu.gyro[1], imu.gyro[2],
+    //         mag.field[0], mag.field[1], mag.field[2],
+    //         mag.field_mag);
+
+    //     usleep(10000);
+    // }
 
     return 0;
 }
