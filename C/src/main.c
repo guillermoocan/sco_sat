@@ -32,7 +32,7 @@ int main(void)
 
     if (QMC5883L_Init(&mag, fd, QMC5883L_ADDRESS, QMC5883L_MODE_CONTINUOUS, QMC5883L_ODR_200HZ, QMC5883L_FULL_SCALE_8G, QMC5883L_OVERSAMPLE_512))
     {
-        printf("QMC5883L no detectado\n");
+        printf("QMC5883L no detectado :(\n");
         return -1;
     }
 
