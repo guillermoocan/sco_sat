@@ -8,11 +8,11 @@
 #include <sys/ioctl.h>
 #include <math.h>
 
-static float D[3][3] ={{0.9854f, -0.0133f, -0.0172f},{-0.0133f, 1.0653f, 0.0009f}, {-0.0172f, 0.0009f, 0.9531f}};
-static float b[3] = {0.1738f, -0.0701f, -0.2817f};
+static float D[3][3] ={{1.0f, 0.0f, 0.0f},{0.0f, 1.0f, 0.0f},{0.0f, 0.0f, 1.0f}};
+static float b[3] = {0.0f, 0.0f, 0.0f};
 
-static float D[3][3] ={{0.9854f, -0.0133f, -0.0172f},{-0.0133f, 1.0653f, 0.0009f}, {-0.0172f, 0.0009f, 0.9531f}};
-static float b[3] = {0.1738f, -0.0701f, -0.2817f};
+// static float D[3][3] ={{0.9854f, -0.0133f, -0.0172f},{-0.0133f, 1.0653f, 0.0009f}, {-0.0172f, 0.0009f, 0.9531f}};
+// static float b[3] = {0.1738f, -0.0701f, -0.2817f};
 
 
 static int QMC5883L_WriteReg(QMC5883L_Type *qmc, uint8_t reg, uint8_t value)
