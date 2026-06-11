@@ -5,6 +5,8 @@ CMakeFiles/sat.dir/src/main.c.o: /home/sat/sco_sat/C/src/main.c \
   /home/sat/sco_sat/C/inc/main.h \
   /home/sat/sco_sat/C/inc/mpu6050.h \
   /home/sat/sco_sat/C/inc/qmc5883l.h \
+  /usr/include/aarch64-linux-gnu/bits/atomic_wide_counter.h \
+  /usr/include/aarch64-linux-gnu/bits/byteswap.h \
   /usr/include/aarch64-linux-gnu/bits/confname.h \
   /usr/include/aarch64-linux-gnu/bits/endian.h \
   /usr/include/aarch64-linux-gnu/bits/endianness.h \
@@ -28,12 +30,19 @@ CMakeFiles/sat.dir/src/main.c.o: /home/sat/sco_sat/C/src/main.c \
   /usr/include/aarch64-linux-gnu/bits/mathcalls-macros.h \
   /usr/include/aarch64-linux-gnu/bits/mathcalls.h \
   /usr/include/aarch64-linux-gnu/bits/posix_opt.h \
+  /usr/include/aarch64-linux-gnu/bits/pthreadtypes-arch.h \
+  /usr/include/aarch64-linux-gnu/bits/pthreadtypes.h \
+  /usr/include/aarch64-linux-gnu/bits/select.h \
   /usr/include/aarch64-linux-gnu/bits/stat.h \
   /usr/include/aarch64-linux-gnu/bits/stdint-intn.h \
   /usr/include/aarch64-linux-gnu/bits/stdint-least.h \
   /usr/include/aarch64-linux-gnu/bits/stdint-uintn.h \
   /usr/include/aarch64-linux-gnu/bits/stdio_lim.h \
+  /usr/include/aarch64-linux-gnu/bits/stdlib-float.h \
+  /usr/include/aarch64-linux-gnu/bits/struct_mutex.h \
+  /usr/include/aarch64-linux-gnu/bits/struct_rwlock.h \
   /usr/include/aarch64-linux-gnu/bits/struct_stat.h \
+  /usr/include/aarch64-linux-gnu/bits/thread-shared-types.h \
   /usr/include/aarch64-linux-gnu/bits/time64.h \
   /usr/include/aarch64-linux-gnu/bits/timesize.h \
   /usr/include/aarch64-linux-gnu/bits/types.h \
@@ -43,26 +52,39 @@ CMakeFiles/sat.dir/src/main.c.o: /home/sat/sco_sat/C/src/main.c \
   /usr/include/aarch64-linux-gnu/bits/types/__fpos_t.h \
   /usr/include/aarch64-linux-gnu/bits/types/__locale_t.h \
   /usr/include/aarch64-linux-gnu/bits/types/__mbstate_t.h \
+  /usr/include/aarch64-linux-gnu/bits/types/__sigset_t.h \
+  /usr/include/aarch64-linux-gnu/bits/types/clock_t.h \
+  /usr/include/aarch64-linux-gnu/bits/types/clockid_t.h \
   /usr/include/aarch64-linux-gnu/bits/types/cookie_io_functions_t.h \
   /usr/include/aarch64-linux-gnu/bits/types/locale_t.h \
+  /usr/include/aarch64-linux-gnu/bits/types/sigset_t.h \
   /usr/include/aarch64-linux-gnu/bits/types/struct_FILE.h \
   /usr/include/aarch64-linux-gnu/bits/types/struct_timespec.h \
+  /usr/include/aarch64-linux-gnu/bits/types/struct_timeval.h \
   /usr/include/aarch64-linux-gnu/bits/types/time_t.h \
+  /usr/include/aarch64-linux-gnu/bits/types/timer_t.h \
   /usr/include/aarch64-linux-gnu/bits/typesizes.h \
+  /usr/include/aarch64-linux-gnu/bits/uintn-identity.h \
   /usr/include/aarch64-linux-gnu/bits/unistd_ext.h \
+  /usr/include/aarch64-linux-gnu/bits/waitflags.h \
+  /usr/include/aarch64-linux-gnu/bits/waitstatus.h \
   /usr/include/aarch64-linux-gnu/bits/wchar.h \
   /usr/include/aarch64-linux-gnu/bits/wordsize.h \
   /usr/include/aarch64-linux-gnu/gnu/stubs-lp64.h \
   /usr/include/aarch64-linux-gnu/gnu/stubs.h \
   /usr/include/aarch64-linux-gnu/sys/cdefs.h \
   /usr/include/aarch64-linux-gnu/sys/ioctl.h \
+  /usr/include/aarch64-linux-gnu/sys/select.h \
   /usr/include/aarch64-linux-gnu/sys/ttydefaults.h \
+  /usr/include/aarch64-linux-gnu/sys/types.h \
+  /usr/include/alloca.h \
   /usr/include/asm-generic/bitsperlong.h \
   /usr/include/asm-generic/int-ll64.h \
   /usr/include/asm-generic/ioctl.h \
   /usr/include/asm-generic/ioctls.h \
   /usr/include/asm-generic/posix_types.h \
   /usr/include/asm-generic/types.h \
+  /usr/include/endian.h \
   /usr/include/fcntl.h \
   /usr/include/features-time64.h \
   /usr/include/features.h \
@@ -75,6 +97,7 @@ CMakeFiles/sat.dir/src/main.c.o: /home/sat/sco_sat/C/src/main.c \
   /usr/include/stdc-predef.h \
   /usr/include/stdint.h \
   /usr/include/stdio.h \
+  /usr/include/stdlib.h \
   /usr/include/string.h \
   /usr/include/strings.h \
   /usr/include/unistd.h \
@@ -266,212 +289,258 @@ sat: /lib/aarch64-linux-gnu/libc.so.6 \
   CMakeFiles/sat.dir/src/qmc5883l.c.o
 
 
-CMakeFiles/sat.dir/src/qmc5883l.c.o:
+/usr/include/aarch64-linux-gnu/bits/types/clockid_t.h:
 
-CMakeFiles/sat.dir/src/main.c.o:
-
-/usr/lib/gcc/aarch64-linux-gnu/14/libgcc.a:
-
-/usr/lib/aarch64-linux-gnu/libm.so:
-
-/usr/lib/gcc/aarch64-linux-gnu/14/crtendS.o:
-
-/usr/lib/aarch64-linux-gnu/libc.so:
-
-/usr/lib/aarch64-linux-gnu/crti.o:
-
-/usr/lib/aarch64-linux-gnu/libc_nonshared.a:
-
-/lib/aarch64-linux-gnu/libmvec.so.1:
-
-/home/sat/sco_sat/C/src/qmc5883l.c:
-
-/usr/lib/linux/uapi/arm64/asm/ioctl.h:
-
-/usr/lib/linux/uapi/arm64/asm/bitsperlong.h:
-
-/usr/lib/gcc/aarch64-linux-gnu/14/include/stdint.h:
-
-/usr/include/strings.h:
-
-/usr/include/stdio.h:
-
-/usr/include/stdc-predef.h:
-
-/usr/include/linux/stddef.h:
-
-/lib/aarch64-linux-gnu/libc.so.6:
-
-/usr/include/linux/posix_types.h:
-
-/usr/include/linux/i2c-dev.h:
-
-/usr/include/features.h:
-
-/usr/include/features-time64.h:
-
-/usr/include/asm-generic/posix_types.h:
-
-/usr/include/asm-generic/ioctls.h:
-
-/usr/include/aarch64-linux-gnu/bits/stat.h:
-
-/usr/include/string.h:
-
-/usr/include/aarch64-linux-gnu/bits/floatn.h:
-
-/usr/include/fcntl.h:
-
-/usr/include/aarch64-linux-gnu/bits/fcntl-linux.h:
-
-CMakeFiles/sat.dir/src/mpu6050.c.o:
-
-/usr/include/aarch64-linux-gnu/bits/types/__mbstate_t.h:
-
-/usr/lib/aarch64-linux-gnu/Scrt1.o:
-
-/usr/include/aarch64-linux-gnu/bits/mathcalls.h:
-
-/usr/include/aarch64-linux-gnu/bits/mathcalls-helper-functions.h:
-
-/usr/include/aarch64-linux-gnu/bits/stdint-least.h:
-
-/usr/include/aarch64-linux-gnu/gnu/stubs.h:
-
-/usr/lib/linux/uapi/arm64/asm/ioctls.h:
-
-/usr/include/aarch64-linux-gnu/sys/ttydefaults.h:
-
-/usr/include/aarch64-linux-gnu/bits/ioctl-types.h:
-
-/usr/lib/aarch64-linux-gnu/crtn.o:
-
-/usr/include/linux/types.h:
-
-/usr/include/aarch64-linux-gnu/bits/getopt_core.h:
-
-/usr/include/aarch64-linux-gnu/bits/fp-logb.h:
-
-/usr/include/unistd.h:
-
-/usr/include/aarch64-linux-gnu/bits/ioctls.h:
-
-/usr/include/aarch64-linux-gnu/bits/math-vector.h:
-
-/usr/include/aarch64-linux-gnu/bits/stdint-uintn.h:
-
-/home/sat/sco_sat/C/inc/qmc5883l.h:
-
-/usr/include/aarch64-linux-gnu/bits/mathcalls-macros.h:
-
-/lib/aarch64-linux-gnu/libm.so.6:
-
-/usr/include/aarch64-linux-gnu/sys/ioctl.h:
-
-/usr/include/aarch64-linux-gnu/bits/getopt_posix.h:
-
-/usr/include/aarch64-linux-gnu/bits/confname.h:
-
-/usr/include/aarch64-linux-gnu/bits/libm-simd-decl-stubs.h:
-
-/usr/include/aarch64-linux-gnu/bits/environments.h:
-
-/usr/include/aarch64-linux-gnu/bits/types/cookie_io_functions_t.h:
-
-/usr/lib/gcc/aarch64-linux-gnu/14/include/stddef.h:
-
-/usr/include/aarch64-linux-gnu/bits/endian.h:
-
-/usr/include/aarch64-linux-gnu/bits/endianness.h:
-
-/usr/include/aarch64-linux-gnu/bits/fcntl.h:
-
-/home/sat/sco_sat/C/src/main.c:
-
-/usr/include/aarch64-linux-gnu/bits/stdint-intn.h:
-
-/home/sat/sco_sat/C/src/mpu6050.c:
-
-/usr/include/aarch64-linux-gnu/bits/posix_opt.h:
-
-/usr/include/stdint.h:
-
-/usr/include/aarch64-linux-gnu/bits/libc-header-start.h:
-
-/usr/include/aarch64-linux-gnu/bits/fp-fast.h:
-
-/usr/include/aarch64-linux-gnu/bits/long-double.h:
-
-/usr/include/aarch64-linux-gnu/bits/flt-eval-method.h:
-
-/usr/include/aarch64-linux-gnu/bits/stdio_lim.h:
-
-/usr/include/aarch64-linux-gnu/bits/struct_stat.h:
-
-/usr/include/aarch64-linux-gnu/bits/time64.h:
-
-/usr/include/aarch64-linux-gnu/bits/types/locale_t.h:
-
-/usr/lib/gcc/aarch64-linux-gnu/14/crtbeginS.o:
-
-/usr/include/asm-generic/ioctl.h:
-
-/usr/include/aarch64-linux-gnu/bits/timesize.h:
-
-/usr/include/aarch64-linux-gnu/bits/types.h:
-
-/home/sat/sco_sat/C/inc/mpu6050.h:
-
-/usr/include/aarch64-linux-gnu/bits/types/FILE.h:
-
-/home/sat/sco_sat/C/inc/main.h:
-
-/usr/include/aarch64-linux-gnu/bits/types/__FILE.h:
-
-/usr/include/aarch64-linux-gnu/bits/wchar.h:
-
-/usr/include/aarch64-linux-gnu/bits/types/__fpos64_t.h:
-
-/usr/include/aarch64-linux-gnu/bits/types/struct_FILE.h:
-
-/usr/include/aarch64-linux-gnu/bits/types/__fpos_t.h:
-
-/usr/include/aarch64-linux-gnu/sys/cdefs.h:
-
-/usr/include/aarch64-linux-gnu/bits/floatn-common.h:
+/usr/include/aarch64-linux-gnu/bits/types/__sigset_t.h:
 
 /usr/include/aarch64-linux-gnu/bits/types/__locale_t.h:
 
+/usr/include/aarch64-linux-gnu/bits/floatn-common.h:
+
+/usr/include/aarch64-linux-gnu/bits/types/struct_FILE.h:
+
+/home/sat/sco_sat/C/inc/main.h:
+
+/usr/include/aarch64-linux-gnu/bits/types/locale_t.h:
+
+/usr/include/aarch64-linux-gnu/bits/struct_stat.h:
+
+/usr/include/aarch64-linux-gnu/bits/types/FILE.h:
+
+CMakeFiles/sat.dir/src/qmc5883l.c.o:
+
+/home/sat/sco_sat/C/inc/mpu6050.h:
+
+/usr/include/aarch64-linux-gnu/bits/struct_rwlock.h:
+
 /usr/lib/aarch64-linux-gnu/libgcc_s.so.1:
+
+/home/sat/sco_sat/C/src/main.c:
+
+/usr/include/aarch64-linux-gnu/bits/types/__fpos_t.h:
+
+/usr/include/aarch64-linux-gnu/bits/stdlib-float.h:
+
+/usr/include/aarch64-linux-gnu/bits/types.h:
+
+/usr/include/aarch64-linux-gnu/bits/struct_mutex.h:
+
+/usr/include/aarch64-linux-gnu/bits/fp-logb.h:
+
+/usr/include/aarch64-linux-gnu/bits/stdio_lim.h:
+
+/usr/include/aarch64-linux-gnu/bits/timesize.h:
+
+/usr/include/aarch64-linux-gnu/bits/select.h:
+
+/usr/include/aarch64-linux-gnu/bits/pthreadtypes.h:
+
+/usr/include/aarch64-linux-gnu/bits/atomic_wide_counter.h:
+
+/usr/lib/gcc/aarch64-linux-gnu/14/libgcc.a:
+
+/usr/include/aarch64-linux-gnu/bits/fp-fast.h:
+
+/usr/include/aarch64-linux-gnu/bits/libc-header-start.h:
+
+/home/sat/sco_sat/C/src/mpu6050.c:
+
+/usr/include/aarch64-linux-gnu/bits/endianness.h:
+
+/usr/include/stdint.h:
+
+/usr/include/aarch64-linux-gnu/bits/types/cookie_io_functions_t.h:
+
+/usr/include/aarch64-linux-gnu/bits/confname.h:
+
+/usr/lib/gcc/aarch64-linux-gnu/14/include/stddef.h:
+
+/usr/include/aarch64-linux-gnu/bits/types/sigset_t.h:
+
+/usr/include/aarch64-linux-gnu/bits/getopt_posix.h:
+
+/usr/include/aarch64-linux-gnu/bits/types/clock_t.h:
+
+/usr/include/aarch64-linux-gnu/bits/stdint-uintn.h:
+
+/usr/include/aarch64-linux-gnu/bits/libm-simd-decl-stubs.h:
+
+/usr/include/aarch64-linux-gnu/bits/math-vector.h:
+
+/usr/include/asm-generic/ioctls.h:
+
+/usr/include/aarch64-linux-gnu/bits/pthreadtypes-arch.h:
+
+/usr/include/unistd.h:
+
+/usr/include/aarch64-linux-gnu/bits/types/__mbstate_t.h:
+
+CMakeFiles/sat.dir/src/mpu6050.c.o:
+
+/usr/include/aarch64-linux-gnu/bits/stat.h:
+
+/usr/include/aarch64-linux-gnu/bits/types/__fpos64_t.h:
+
+/usr/include/aarch64-linux-gnu/bits/fcntl-linux.h:
+
+/usr/include/fcntl.h:
+
+/usr/include/aarch64-linux-gnu/bits/posix_opt.h:
+
+/usr/include/aarch64-linux-gnu/bits/fcntl.h:
+
+/usr/include/aarch64-linux-gnu/bits/floatn.h:
+
+/usr/include/string.h:
+
+/usr/include/aarch64-linux-gnu/bits/environments.h:
+
+/usr/include/aarch64-linux-gnu/bits/flt-eval-method.h:
+
+/usr/include/endian.h:
+
+/usr/include/aarch64-linux-gnu/bits/getopt_core.h:
+
+/usr/lib/aarch64-linux-gnu/crtn.o:
+
+/usr/include/aarch64-linux-gnu/bits/ioctl-types.h:
+
+/usr/include/aarch64-linux-gnu/bits/stdint-least.h:
+
+/usr/include/aarch64-linux-gnu/sys/select.h:
+
+/usr/include/aarch64-linux-gnu/bits/mathcalls-helper-functions.h:
 
 /usr/include/aarch64-linux-gnu/bits/types/struct_timespec.h:
 
-/usr/lib/gcc/aarch64-linux-gnu/14/libgcc_s.so:
+/usr/include/aarch64-linux-gnu/bits/mathcalls.h:
 
-/usr/include/aarch64-linux-gnu/bits/unistd_ext.h:
+/usr/lib/aarch64-linux-gnu/Scrt1.o:
 
-/usr/lib/gcc/aarch64-linux-gnu/14/include/stdarg.h:
+/usr/include/aarch64-linux-gnu/bits/types/struct_timeval.h:
 
-/usr/include/aarch64-linux-gnu/bits/types/time_t.h:
-
-/usr/include/aarch64-linux-gnu/bits/typesizes.h:
-
-/lib/ld-linux-aarch64.so.1:
-
-/usr/include/asm-generic/types.h:
-
-/usr/include/aarch64-linux-gnu/bits/wordsize.h:
-
-/usr/include/math.h:
-
-/usr/include/aarch64-linux-gnu/gnu/stubs-lp64.h:
-
-/usr/include/asm-generic/bitsperlong.h:
-
-/usr/lib/linux/uapi/arm64/asm/types.h:
-
-/usr/lib/linux/uapi/arm64/asm/posix_types.h:
+/usr/include/linux/types.h:
 
 /usr/include/linux/ioctl.h:
 
+/usr/lib/linux/uapi/arm64/asm/posix_types.h:
+
+/usr/include/aarch64-linux-gnu/bits/thread-shared-types.h:
+
+/usr/lib/linux/uapi/arm64/asm/types.h:
+
+/usr/include/aarch64-linux-gnu/bits/types/time_t.h:
+
+/usr/lib/gcc/aarch64-linux-gnu/14/include/stdarg.h:
+
 /usr/include/asm-generic/int-ll64.h:
+
+/usr/include/aarch64-linux-gnu/bits/types/timer_t.h:
+
+/usr/include/aarch64-linux-gnu/bits/typesizes.h:
+
+/usr/include/aarch64-linux-gnu/bits/uintn-identity.h:
+
+/usr/include/aarch64-linux-gnu/bits/ioctls.h:
+
+/usr/include/aarch64-linux-gnu/sys/cdefs.h:
+
+/usr/include/aarch64-linux-gnu/bits/byteswap.h:
+
+/usr/include/aarch64-linux-gnu/bits/unistd_ext.h:
+
+/usr/lib/gcc/aarch64-linux-gnu/14/libgcc_s.so:
+
+/usr/include/aarch64-linux-gnu/bits/waitflags.h:
+
+/usr/include/aarch64-linux-gnu/bits/wchar.h:
+
+/usr/include/aarch64-linux-gnu/bits/waitstatus.h:
+
+CMakeFiles/sat.dir/src/main.c.o:
+
+/usr/include/aarch64-linux-gnu/bits/wordsize.h:
+
+/usr/include/asm-generic/types.h:
+
+/usr/include/aarch64-linux-gnu/gnu/stubs-lp64.h:
+
+/usr/include/math.h:
+
+/usr/include/aarch64-linux-gnu/bits/stdint-intn.h:
+
+/usr/include/aarch64-linux-gnu/gnu/stubs.h:
+
+/usr/include/aarch64-linux-gnu/bits/mathcalls-macros.h:
+
+/usr/include/aarch64-linux-gnu/sys/ioctl.h:
+
+/usr/include/aarch64-linux-gnu/sys/ttydefaults.h:
+
+/usr/include/aarch64-linux-gnu/sys/types.h:
+
+/usr/lib/linux/uapi/arm64/asm/ioctls.h:
+
+/usr/include/aarch64-linux-gnu/bits/time64.h:
+
+/usr/include/alloca.h:
+
+/usr/lib/aarch64-linux-gnu/libc.so:
+
+/usr/lib/gcc/aarch64-linux-gnu/14/crtendS.o:
+
+/usr/include/asm-generic/bitsperlong.h:
+
+/usr/include/asm-generic/ioctl.h:
+
+/usr/lib/gcc/aarch64-linux-gnu/14/crtbeginS.o:
+
+/usr/include/features-time64.h:
+
+/usr/include/features.h:
+
+/lib/ld-linux-aarch64.so.1:
+
+/usr/include/linux/i2c-dev.h:
+
+/usr/include/linux/posix_types.h:
+
+/usr/include/aarch64-linux-gnu/bits/types/__FILE.h:
+
+/lib/aarch64-linux-gnu/libc.so.6:
+
+/usr/include/linux/stddef.h:
+
+/usr/include/asm-generic/posix_types.h:
+
+/usr/include/stdc-predef.h:
+
+/usr/include/stdio.h:
+
+/usr/include/stdlib.h:
+
+/usr/include/strings.h:
+
+/usr/include/aarch64-linux-gnu/bits/long-double.h:
+
+/usr/lib/gcc/aarch64-linux-gnu/14/include/stdint.h:
+
+/usr/lib/linux/uapi/arm64/asm/bitsperlong.h:
+
+/usr/lib/linux/uapi/arm64/asm/ioctl.h:
+
+/home/sat/sco_sat/C/src/qmc5883l.c:
+
+/lib/aarch64-linux-gnu/libm.so.6:
+
+/lib/aarch64-linux-gnu/libmvec.so.1:
+
+/usr/include/aarch64-linux-gnu/bits/endian.h:
+
+/usr/lib/aarch64-linux-gnu/libc_nonshared.a:
+
+/usr/lib/aarch64-linux-gnu/crti.o:
+
+/home/sat/sco_sat/C/inc/qmc5883l.h:
+
+/usr/lib/aarch64-linux-gnu/libm.so:

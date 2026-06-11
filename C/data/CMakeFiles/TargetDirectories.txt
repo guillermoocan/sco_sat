@@ -1,0 +1,3 @@
+/home/sat/sco_sat/C/data/CMakeFiles/sat.dir
+/home/sat/sco_sat/C/data/CMakeFiles/edit_cache.dir
+/home/sat/sco_sat/C/data/CMakeFiles/rebuild_cache.dir
