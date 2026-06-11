@@ -10,11 +10,13 @@ int main()
         return -1;
     }
 
+    MPU6050_Calibration(&imu);
+    
     while(1)
     {
         MPU6050_Read(&imu);
 
-        MPU6050_Calibration(&imu);
+        
 
         printf("A: %.3f %.3f %.3f  G: %.3f %.3f %.3f\n",imu.accel[0], imu.accel[1], imu.accel[2],imu.gyro[0], imu.gyro[1], imu.gyro[2]);
 
