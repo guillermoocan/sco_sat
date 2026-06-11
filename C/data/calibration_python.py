@@ -83,10 +83,6 @@ expMFS = np.mean(mag)
 A = A * (1/expMFS) 
 # -----------------------------
 
-# El resto de tu código de validación y prints se mantiene igual
-mag = np.linalg.norm((A @ X.T).T, axis=1)
-expMFS = np.mean(mag)
-
 print("Centro:")
 print(bias)
 
