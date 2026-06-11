@@ -7,6 +7,8 @@ x = data[:,0]
 y = data[:,1]
 z = data[:,2]
 
+M = np.column_stack((x,y,z))
+
 D = np.column_stack([x*x, y*y, z*z, 2*x*y, 2*x*z, 2*y*z, 2*x, 2*y, 2*z])
 v = np.ones(len(x))
 
@@ -16,7 +18,7 @@ A = np.array([[p[0], p[3], p[4]],
               [p[3], p[1], p[5]],
               [p[4], p[5], p[2]]])
 
-A=-A
+A = -A
 
 g = np.array([p[6], p[7], p[8]])
 
@@ -33,6 +35,16 @@ print("A =")
 print(A)
 
 Dcal = eigvec @ np.diag(np.sqrt(eigval)) @ eigvec.T
+
+Mcal = (Dcal @ (M - b).T).T
+
+mag = np.linalg.norm(Mcal, axis=1)
+
+print("\nValidation")
+print("mean =", np.mean(mag))
+print("std  =", np.std(mag))
+print("min  =", np.min(mag))
+print("max  =", np.max(mag))
 
 print("\nstatic float b[3] = {")
 print(f"    {b[0]:.6f}f,")
