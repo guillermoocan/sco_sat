@@ -47,7 +47,7 @@ bias = -np.linalg.inv(Q) @ u
 
 k = bias.T @ Q @ bias - j
 
-M = Q 
+M = Q
 
 eigval, eigvec = np.linalg.eigh(M)
 
@@ -56,7 +56,7 @@ if np.any(eigval <= 0):
         f"La cuádrica ajustada no es una elipsoide. eig={eigval}"
     )
 
-A = (eigvec @ np.diag(np.sqrt(eigval)) @ eigvec.T)
+A = (eigvec @ np.diag(np.sqrt(eigval)) @ eigvec.T)/np.sqrt(k)
 
 X = data - bias
 
