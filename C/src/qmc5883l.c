@@ -126,7 +126,8 @@ int QMC5883L_Calibrate(QMC5883L_Type *qmc, const char *filename, uint32_t sample
         return -1;
 
     fprintf(fp, "mx,my,mz\n");
-
+    printf("\rCalulando calibracion");
+    
     for (uint32_t i = 0; i < samples; i++)
     {
         if (QMC5883L_ReadRegs(qmc, QMC5883L_DATA_OUTPUT_X_LSB, qmc->field_raw, 6))
@@ -144,7 +145,9 @@ int QMC5883L_Calibrate(QMC5883L_Type *qmc, const char *filename, uint32_t sample
 
         usleep(period_us);
 
-        if ((i % 100) == 0)printf("\rMuestras: %u/%u", i, samples);
+        if ((i % 100) == 0){
+            printf("\rMuestras: %u/%u", i, samples);
+        }
     }
 
     printf("\rMuestras: %u/%u\n", samples, samples);
