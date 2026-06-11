@@ -44,37 +44,33 @@ if np.trace(Q) < 0:
     j = -j
 
 bias = -np.linalg.inv(Q) @ u
+# ... (Tu código anterior igual hasta el cálculo de k)
 
-# 1. Calculamos k basándonos en la ecuación implícita del elipsoide
 k = bias.T @ Q @ bias - j
 
-# 2. Tomamos autovalores DIRECTOS de Q (sin dividir por k)
-M = Q
+# 1. Matriz normalizada para esfera unitaria (Radio 1)
+M = Q / k 
+
 eigval, eigvec = np.linalg.eigh(M)
 
 if np.any(eigval <= 0):
-    raise RuntimeError(
-        f"La cuádrica ajustada no es una elipsoide. eig={eigval}"
-    )
+    raise RuntimeError(f"La cuádrica ajustada no es una elipsoide. eig={eigval}")
 
-# 3. Calculamos la matriz A base (deshace la rotación y el acoplamiento de ejes)
-A_base = eigvec @ np.diag(np.sqrt(eigval)) @ eigvec.T
+# Esta es la matriz A para llevar los datos a una esfera de radio 1
+A_unit = (eigvec @ np.diag(np.sqrt(eigval)) @ eigvec.T)
 
-# 4. En magcal, expMFS es el radio real de la esfera ajustada.
-# Matemáticamente se obtiene a partir del factor de escala k:
-# Dado que evaluamos x^T Q x = k, el radio promedio ideal al normalizar es sqrt(k)
-# Pero como los autovalores ya están en A_base, calculamos la ganancia real:
+# 2. Calculamos la magnitud promedio de los datos corregidos en radio 1
 X = data - bias
-X_base = (A_base @ X.T).T
-mag_base = np.linalg.norm(X_base, axis=1)
+X_unit = (A_unit @ X.T).T
+mag_unit = np.linalg.norm(X_unit, axis=1)
 
-# Este es el verdadero radio escalar en las unidades originales del sensor (uT / Gauss)
-expMFS = np.sqrt(k)
+# El radio real estimado (expMFS) de magcal es el inverso del promedio de las normas
+# de la transformación sin normalizar por k, o equivalentemente:
+expMFS = 1.0 / np.mean(mag_unit)
 
-# 5. Ajustamos la matriz A para que la salida conserve la escala original de magcal
-# Magcal normaliza A dividiéndola por la raíz de k (o multiplicando por el inverso)
-# para que los datos queden escalados exactamente respecto a su campo magnético esperado.
-A = A_base / np.sqrt(k)
+# 3. Ajustamos A para que la esfera resultante tenga radio 'expMFS' y no radio 1
+# Magcal exporta la matriz que mapea los datos a la escala original/esperada:
+A = A_unit * expMFS
 # -----------------------------
 
 # Validación final con la matriz A escalada
