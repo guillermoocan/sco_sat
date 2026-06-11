@@ -56,7 +56,7 @@ if np.any(eigval <= 0):
         f"La cuádrica ajustada no es una elipsoide. eig={eigval}"
     )
 
-A = eigvec @ np.diag(np.sqrt(eigval)) @ eigvec.T
+A = np.sqrt(k) * (eigvec @ np.diag(np.sqrt(eigval)) @ eigvec.T)
 
 X = data - bias
 
