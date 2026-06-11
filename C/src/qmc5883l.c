@@ -28,13 +28,7 @@ static int QMC5883L_ReadRegs(QMC5883L_Type *qmc, uint8_t reg, uint8_t *data, uin
     return 0;
 }
 
-int QMC5883L_Init(QMC5883L_Type *qmc,
-                  const char *i2c_device,
-                  uint8_t address,
-                  uint8_t mode,
-                  uint8_t data_output_rate,
-                  uint8_t full_scale,
-                  uint8_t over_sample)
+int QMC5883L_Init(QMC5883L_Type *qmc, const char *i2c_device, uint8_t address, uint8_t mode, uint8_t data_output_rate, uint8_t full_scale, uint8_t over_sample)
 {
     memset(qmc, 0, sizeof(QMC5883L_Type));
 
