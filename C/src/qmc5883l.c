@@ -134,7 +134,7 @@ int QMC5883L_Calibrate(QMC5883L_Type *qmc, const char *filename, uint32_t sample
         qmc->field[1] = (float)qmc->field_raw_16[1] ;
         qmc->field[2] = (float)qmc->field_raw_16[2] ;
 
-        printf(fp, "%.8f,%.8f,%.8f\n",qmc->field[0],qmc->field[1],qmc->field[2]);
+        fprintf(fp, "%.8f,%.8f,%.8f\n",qmc->field[0],qmc->field[1],qmc->field[2]);
 
         usleep(period_us);
 
