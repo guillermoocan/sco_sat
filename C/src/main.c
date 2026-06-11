@@ -1,11 +1,4 @@
-#include <stdio.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <sys/ioctl.h>
-#include <linux/i2c-dev.h>
-
-#include "mpu6050.h"
-#include "qmc5883l.h"
+#include "main.h"
 
 int main(void)
 {

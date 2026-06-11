@@ -1,11 +1,5 @@
 #include "qmc5883l.h"
-#include <stdio.h>
-#include <string.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <linux/i2c-dev.h>
-#include <sys/ioctl.h>
-#include <math.h>
+
 
 static float D[3][3] =
 {
