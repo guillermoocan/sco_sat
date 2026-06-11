@@ -76,11 +76,11 @@ mag = np.linalg.norm(X, axis=1)
 # Magcal suele definir el expMFS (Expected Magnetic Field Strength) 
 # basándose en el radio de la elipsoide ajustada o revirtiendo la escala.
 # Para obtener exactamente el expMFS de magcal junto con su matriz A:
-expMFS = 1.0 / np.mean(mag) 
+expMFS = np.mean(mag) 
 
 # Re-escalamos A para que coincida con el formato de magcal 
 # donde la intensidad del campo se absorbe en la matriz o viceversa:
-A = A * expMFS 
+A = A * (1/expMFS) 
 # -----------------------------
 
 # El resto de tu código de validación y prints se mantiene igual
