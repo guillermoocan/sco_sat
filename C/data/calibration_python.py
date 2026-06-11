@@ -47,7 +47,7 @@ bias = -np.linalg.inv(Q) @ u
 
 k = bias.T @ Q @ bias - j
 
-M = Q / k
+M = Q 
 
 eigval, eigvec = np.linalg.eigh(M)
 
