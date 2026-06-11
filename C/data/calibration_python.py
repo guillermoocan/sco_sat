@@ -16,6 +16,8 @@ A = np.array([[p[0], p[3], p[4]],
               [p[3], p[1], p[5]],
               [p[4], p[5], p[2]]])
 
+A=-A
+
 g = np.array([p[6], p[7], p[8]])
 
 b = -0.5*np.linalg.inv(A) @ g
