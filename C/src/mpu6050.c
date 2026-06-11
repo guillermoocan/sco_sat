@@ -19,7 +19,7 @@ static int MPU6050_ReadRegs(MPU6050_Type *mpu, uint8_t reg, uint8_t *data, uint1
     return 0;
 }
 
-int MPU6050_Init(MPU6050_Type *mpu, const char *i2c_device, uint8_t address, uint8_t accel_fs, uint8_t gyro_fs)
+int MPU6050_Init(MPU6050_Type *mpu, int fd_ext, uint8_t address, uint8_t accel_fs, uint8_t gyro_fs)
 {
     memset(mpu, 0, sizeof(MPU6050_Type));
 
@@ -27,7 +27,7 @@ int MPU6050_Init(MPU6050_Type *mpu, const char *i2c_device, uint8_t address, uin
     mpu->ACCEL_FS = accel_fs;
     mpu->GYRO_FS = gyro_fs;
 
-    mpu->fd = open(i2c_device, O_RDWR);
+    mpu->fd = fd_ext;
     if(mpu->fd < 0) return -1;
 
     if(ioctl(mpu->fd, I2C_SLAVE, address) < 0) return -1;
