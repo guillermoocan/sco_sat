@@ -132,7 +132,7 @@ int QMC5883L_Calibrate(QMC5883L_Type *qmc, const char *filename, uint32_t sample
     for (uint32_t i = 0; i < samples; i++)
     {
         if (QMC5883L_ReadRegs(qmc, QMC5883L_DATA_OUTPUT_X_LSB, qmc->field_raw, 6))
-            return;
+            return -1;
 
         qmc->field_raw_16[0] = (int16_t)((qmc->field_raw[1] << 8) | qmc->field_raw[0]);
         qmc->field_raw_16[1] = (int16_t)((qmc->field_raw[3] << 8) | qmc->field_raw[2]);
