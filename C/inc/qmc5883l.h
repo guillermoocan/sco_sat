@@ -63,7 +63,7 @@ typedef struct
 
 int QMC5883L_Init(QMC5883L_Type *qmc, const char *i2c_device, uint8_t address, uint8_t mode, uint8_t data_output_rate, uint8_t full_scale, uint8_t over_sample);
 
-void QMC5883L_Measure_Read(QMC5883L_Type *qmc);
+void QMC5883L_Read(QMC5883L_Type *qmc);
 
 void QMC5883L_Close(QMC5883L_Type *qmc);
 
