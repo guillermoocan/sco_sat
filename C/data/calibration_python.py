@@ -44,28 +44,45 @@ if np.trace(Q) < 0:
     j = -j
 
 bias = -np.linalg.inv(Q) @ u
+# ... (Tu código anterior igual hasta el cálculo de k)
 
 k = bias.T @ Q @ bias - j
 
-M = Q
+# --- CORRECCIÓN DE ESCALA ---
+# Dividimos Q por k para normalizar la ecuación del elipsoide a la forma: 
+# (x-b).T @ (Q/k) @ (x-b) = 1
+M = Q / k 
 
 eigval, eigvec = np.linalg.eigh(M)
-
-print(k)
 
 if np.any(eigval <= 0):
     raise RuntimeError(
         f"La cuádrica ajustada no es una elipsoide. eig={eigval}"
     )
 
+# A es la raíz cuadrada de la matriz M normalizada
 A = (eigvec @ np.diag(np.sqrt(eigval)) @ eigvec.T)
 
+# --- CORRECCIÓN DE expMFS ---
+# Escalamos los datos con la nueva matriz A
 X = data - bias
-
 Xcal = (A @ X.T).T
 
+# Ahora la magnitud de Xcal estará normalizada cerca de 1.0
 mag = np.linalg.norm(Xcal, axis=1)
 
+# Magcal suele definir el expMFS (Expected Magnetic Field Strength) 
+# basándose en el radio de la elipsoide ajustada o revirtiendo la escala.
+# Para obtener exactamente el expMFS de magcal junto con su matriz A:
+expMFS = 1.0 / np.mean(mag) 
+
+# Re-escalamos A para que coincida con el formato de magcal 
+# donde la intensidad del campo se absorbe en la matriz o viceversa:
+A = A * expMFS 
+# -----------------------------
+
+# El resto de tu código de validación y prints se mantiene igual
+mag = np.linalg.norm((A @ X.T).T, axis=1)
 expMFS = np.mean(mag)
 
 print("Centro:")
