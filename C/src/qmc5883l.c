@@ -132,7 +132,7 @@ int QMC5883L_Calibrate(QMC5883L_Type *qmc, const char *filename, uint32_t sample
 
     for (uint32_t i = 0; i < samples; i++)
     {
-        QMC5883L_Measure_Read(qmc);
+        QMC5883L_Read(qmc);
 
         fprintf(fp, "%.8f,%.8f,%.8f\n",
                 qmc->field[0],
