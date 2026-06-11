@@ -48,42 +48,34 @@ bias = -np.linalg.inv(Q) @ u
 
 k = bias.T @ Q @ bias - j
 
-# --- CORRECCIÓN DE ESCALA ---
-# Dividimos Q por k para normalizar la ecuación del elipsoide a la forma: 
-# (x-b).T @ (Q/k) @ (x-b) = 1
+# 1. Matriz normalizada para esfera unitaria (Radio 1)
 M = Q / k 
 
 eigval, eigvec = np.linalg.eigh(M)
 
 if np.any(eigval <= 0):
-    raise RuntimeError(
-        f"La cuádrica ajustada no es una elipsoide. eig={eigval}"
-    )
+    raise RuntimeError(f"La cuádrica ajustada no es una elipsoide. eig={eigval}")
 
-# A es la raíz cuadrada de la matriz M normalizada
-A = (eigvec @ np.diag(np.sqrt(eigval)) @ eigvec.T)
+# Esta es la matriz A para llevar los datos a una esfera de radio 1
+A_unit = (eigvec @ np.diag(np.sqrt(eigval)) @ eigvec.T)
 
-# --- CORRECCIÓN DE expMFS ---
-# Escalamos los datos con la nueva matriz A
+# 2. Calculamos la magnitud promedio de los datos corregidos en radio 1
 X = data - bias
-Xcal = (A @ X.T).T
+X_unit = (A_unit @ X.T).T
+mag_unit = np.linalg.norm(X_unit, axis=1)
 
-# Ahora la magnitud de Xcal estará normalizada cerca de 1.0
-mag = np.linalg.norm(Xcal, axis=1)
+# El radio real estimado (expMFS) de magcal es el inverso del promedio de las normas
+# de la transformación sin normalizar por k, o equivalentemente:
+expMFS = 1.0 / np.mean(mag_unit)
 
-# Magcal suele definir el expMFS (Expected Magnetic Field Strength) 
-# basándose en el radio de la elipsoide ajustada o revirtiendo la escala.
-# Para obtener exactamente el expMFS de magcal junto con su matriz A:
-expMFS = 1.0 / np.mean(mag) 
-
-# Re-escalamos A para que coincida con el formato de magcal 
-# donde la intensidad del campo se absorbe en la matriz o viceversa:
-A = A * expMFS 
+# 3. Ajustamos A para que la esfera resultante tenga radio 'expMFS' y no radio 1
+# Magcal exporta la matriz que mapea los datos a la escala original/esperada:
+A = A_unit * expMFS
 # -----------------------------
 
-# El resto de tu código de validación y prints se mantiene igual
-mag = np.linalg.norm((A @ X.T).T, axis=1)
-expMFS = np.mean(mag)
+# Validación final con la matriz A escalada
+Xcal = (A @ X.T).T
+mag = np.linalg.norm(Xcal, axis=1)
 
 print("Centro:")
 print(bias)
