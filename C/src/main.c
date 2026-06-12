@@ -22,7 +22,7 @@ int main(void)
     printf("QMC5883L detectado\n");
 
 
-    QMC5883L_Calibrate(&mag, "../data/calibration.csv", 1000, 10000);
+    QMC5883L_Calibrate(&mag, "../data/calibration.csv", 5000, 10000);
     if(system("python3 ../data/calibration_python.py ../data/calibration.csv")) 
     { 
         printf("Error ejecutando calibracion_python.py\n"); 
