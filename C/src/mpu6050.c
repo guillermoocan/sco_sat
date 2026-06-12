@@ -86,6 +86,18 @@ void MPU6050_Read(MPU6050_Type *mpu)
     mpu->gyro[0] = (float)mpu->gyro_raw_16[0] / mpu->GYRO_LSB_GAIN - mpu->gyro_offset[0];
     mpu->gyro[1] = (float)mpu->gyro_raw_16[1] / mpu->GYRO_LSB_GAIN - mpu->gyro_offset[1];
     mpu->gyro[2] = (float)mpu->gyro_raw_16[2] / mpu->GYRO_LSB_GAIN - mpu->gyro_offset[2];
+
+    uint8_t pwr, accel_cfg, gyro_cfg;
+
+    MPU6050_ReadRegs(mpu, MPU6050_RA_PWR_MGMT_1, &pwr, 1);
+    MPU6050_ReadRegs(mpu, MPU6050_RA_ACCEL_CONFIG, &accel_cfg, 1);
+    MPU6050_ReadRegs(mpu, MPU6050_RA_GYRO_CONFIG, &gyro_cfg, 1);
+
+    printf("PWR_MGMT_1   = 0x%02X\n", pwr);
+    printf("ACCEL_CONFIG = 0x%02X\n", accel_cfg);
+    printf("GYRO_CONFIG  = 0x%02X\n", gyro_cfg);
+
+
 }
 
 void MPU6050_Calibration(MPU6050_Type *mpu)
