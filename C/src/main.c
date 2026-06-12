@@ -46,6 +46,7 @@ int main(void)
     //     return -1;
     // }
 
+    MPU6050_Calibrate(&imu);
 
     while (1)
     {
