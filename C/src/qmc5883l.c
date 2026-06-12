@@ -36,7 +36,7 @@ static int QMC5883L_ReadRegs(QMC5883L_Type *qmc, uint8_t reg, uint8_t *data, uin
     return 0;
 }
 
-int QMC5883L_Init(QMC5883L_Type *qmc, int fd_ext, uint8_t address, uint8_t mode, uint8_t data_output_rate, uint8_t full_scale, uint8_t over_sample)
+int QMC5883L_Init(QMC5883L_Type *qmc, const char *i2c_device, uint8_t address, uint8_t mode, uint8_t data_output_rate, uint8_t full_scale, uint8_t over_sample)
 {
     memset(qmc, 0, sizeof(QMC5883L_Type));
 
@@ -46,12 +46,12 @@ int QMC5883L_Init(QMC5883L_Type *qmc, int fd_ext, uint8_t address, uint8_t mode,
     qmc->FULL_SCALE = full_scale;
     qmc->OVER_SAMPLE = over_sample;
 
-    qmc->fd = fd_ext;
+    qmc->fd = open(i2c_device, O_RDWR);
 
-    if (qmc->fd < 0)
+    if(qmc->fd < 0)
         return -1;
 
-    if (ioctl(qmc->fd, I2C_SLAVE, address) < 0)
+    if(ioctl(qmc->fd, I2C_SLAVE, address) < 0)
         return -1;
 
     uint8_t chip_id;
