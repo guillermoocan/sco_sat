@@ -52,14 +52,21 @@ int main(void)
 
         SCO_Task_Estimation(&sco, obs_0_r, mpu.accel, obs_1_r, magn.field, mpu.gyro, dt);
 
-        printf("q = [% .4f % .4f % .4f % .4f]  w = [% .3f % .3f % .3f]\n",
-               sco.q_est.q[0],
-               sco.q_est.q[1],
-               sco.q_est.q[2],
-               sco.q_est.q[3],
-               sco.w_est.d[0],
-               sco.w_est.d[1],
-               sco.w_est.d[2]);
+        printf("%.6f %.6f %.6f %.6f %.6f %.6f %.6f %.6f %.6f %.6f %.6f %.6f %.6f %.6f\n",
+        sco->q_quest.q[0],
+        sco->q_quest.q[1],
+        sco->q_quest.q[2],
+        sco->q_quest.q[3],
+        sco->q_est.q[0],
+        sco->q_est.q[1],
+        sco->q_est.q[2],
+        sco->q_est.q[3],
+        sco->rate.d[0],
+        sco->rate.d[1],
+        sco->rate.d[2],
+        sco->w_est.d[0],
+        sco->w_est.d[1],
+        sco->w_est.d[2]);
 
         usleep(10000);
     }
