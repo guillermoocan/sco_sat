@@ -68,7 +68,7 @@ int main(void)
         sco.w_est.d[1],
         sco.w_est.d[2]);
 
-        usleep(100000);
+        usleep(10000);
     }
 
     MPU6050_Close(&mpu);
