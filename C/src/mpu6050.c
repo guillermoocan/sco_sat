@@ -107,7 +107,7 @@ void MPU6050_Read(MPU6050_Type *mpu)
 
 void MPU6050_Calibration(MPU6050_Type *mpu)
 {
-    const int samples = 1000;
+    const int samples = 300;
     float accel_sum[3] = {0};
     float gyro_sum[3] = {0};
 
