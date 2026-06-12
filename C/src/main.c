@@ -53,6 +53,8 @@ int main(void)
         MPU6050_Read(&imu);
         QMC5883L_Read(&mag);
 
+        printf("%d %d %d\n",imu.accel_raw_16[0],imu.accel_raw_16[1],imu.accel_raw_16[2]);
+
         printf(" ACC: %.3f %.3f %.3f | GYRO: %.3f %.3f %.3f | MAG: %.3f %.3f %.3f | |B|: %.3f\n",
             imu.accel[0], imu.accel[1], imu.accel[2],
             imu.gyro[0], imu.gyro[1], imu.gyro[2],
