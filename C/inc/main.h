@@ -8,6 +8,8 @@
     #include <fcntl.h>
     #include <sys/ioctl.h>
     #include <linux/i2c-dev.h>
+    #include <time.h>
+    #include <stdint.h>
 
     #include "mpu6050.h"
     #include "qmc5883l.h"
