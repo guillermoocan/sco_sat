@@ -52,7 +52,7 @@ int main(void)
 
         SCO_Task_Estimation(&sco, obs_0_r, mpu.accel, obs_1_r, magn.field, mpu.gyro, dt);
 
-        printf("%.6f %.6f %.6f %.6f %.6f %.6f %.6f %.6f %.6f %.6f %.6f %.6f %.6f %.6f\n",
+        printf("%.6f %.6f %.6f %.6f %.6f %.6f %.6f %.6f %.6f %.6f %.6f %.6f %.6f %.6f\n ",
         sco.q_quest.q[0],
         sco.q_quest.q[1],
         sco.q_quest.q[2],
