@@ -22,7 +22,7 @@ int main(void)
         return -1;
     }
 
-    if (MPU6050_Init(&imu, fd, MPU6050_ADDRESS_AD0_LOW, MPU6050_ACCEL_FS_2, MPU6050_GYRO_FS_250))
+    if (MPU6050_Init(&imu, fd, MPU6050_ADDRESS_AD0_LOW, MPU6050_ACCEL_FS_4, MPU6050_GYRO_FS_250))
     {
         printf("MPU6050 no detectado\n");
         return -1;
