@@ -21,37 +21,41 @@ int main(void)
 
     printf("QMC5883L detectado\n");
 
-    MPU6050_Calibration(&imu);
 
-    while (1)
-    {
-        MPU6050_Read(&imu);
-        QMC5883L_Read(&mag);
-
-        printf("%6d %6d %6d | ",
-            imu.accel_raw_16[0],
-            imu.accel_raw_16[1],
-            imu.accel_raw_16[2]);
-
-        printf("ACC: %7.3f %7.3f %7.3f | ",
-            imu.accel[0],
-            imu.accel[1],
-            imu.accel[2]);
-
-        printf("GYRO: %7.3f %7.3f %7.3f | ",
-            imu.gyro[0],
-            imu.gyro[1],
-            imu.gyro[2]);
-
-        printf("MAG: %7.3f %7.3f %7.3f | ",
-            mag.field[0],
-            mag.field[1],
-            mag.field[2]);
-
-        printf("|B|: %7.3f\n", mag.field_mag);
-
-        usleep(10000);
+    QMC5883L_Calibrate(&mag, "../data/calibration.csv", 1000, 10000);
+    if(system("python3 ../data/calibration_python.py ../data/calibration.csv")) 
+    { 
+        printf("Error ejecutando calibracion_python.py\n"); 
+        return -1; 
     }
+
+
+    // MPU6050_Calibration(&imu);
+
+    // while (1)
+    // {
+    //     MPU6050_Read(&imu);
+    //     QMC5883L_Read(&mag);
+
+    //     printf("ACC: %7.3f %7.3f %7.3f | ",
+    //         imu.accel[0],
+    //         imu.accel[1],
+    //         imu.accel[2]);
+
+    //     printf("GYRO: %7.3f %7.3f %7.3f | ",
+    //         imu.gyro[0],
+    //         imu.gyro[1],
+    //         imu.gyro[2]);
+
+    //     printf("MAG: %7.3f %7.3f %7.3f | ",
+    //         mag.field[0],
+    //         mag.field[1],
+    //         mag.field[2]);
+
+    //     printf("|B|: %7.3f\n", mag.field_mag);
+
+    //     usleep(10000);
+    // }
 
     MPU6050_Close(&imu);
     QMC5883L_Close(&mag);
