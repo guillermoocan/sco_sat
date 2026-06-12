@@ -11,5 +11,6 @@
 
     #include "mpu6050.h"
     #include "qmc5883l.h"
+    #include "sco.h"
 
 #endif

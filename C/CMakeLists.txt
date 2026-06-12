@@ -8,6 +8,7 @@ add_executable(sat
     src/main.c
     src/mpu6050.c
     src/qmc5883l.c
+    src/sco.c
 )
 
 target_include_directories(sat PRIVATE ${PROJECT_SOURCE_DIR}/inc)
