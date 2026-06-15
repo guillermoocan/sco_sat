@@ -19,8 +19,10 @@ int main(void)
 
     printf("ICM20948 detectado\n");
 
+    ICM20948_Calibrate(&imu);
+
     ICM20948_CalibrateMag(&imu, "../data/calibration.csv", 1000, 10000);
-    
+
     if(system("python3 ../data/calibration_python.py ../data/calibration.csv")) 
     { 
         printf("Error ejecutando calibracion_python.py\n"); 
@@ -29,65 +31,65 @@ int main(void)
 
 
 
-    // ICM20948_Read(&imu);
+    ICM20948_Read(&imu);
 
-    // SCO_Task_Initialization(
-    //     &sco,
-    //     obs_0_r,
-    //     imu.accel,
-    //     obs_1_r,
-    //     imu.mag,
-    //     imu.gyro
-    // );
+    SCO_Task_Initialization(
+        &sco,
+        obs_0_r,
+        imu.accel,
+        obs_1_r,
+        imu.mag,
+        imu.gyro
+    );
 
-    // struct timespec ts;
+    struct timespec ts;
 
-    // clock_gettime(CLOCK_MONOTONIC, &ts);
-    // t0 = (uint64_t)ts.tv_sec * 1000000000ULL + ts.tv_nsec;
+    clock_gettime(CLOCK_MONOTONIC, &ts);
+    t0 = (uint64_t)ts.tv_sec * 1000000000ULL + ts.tv_nsec;
 
-    // while(1)
-    // {
-    //     ICM20948_Read(&imu);
+    while(1)
+    {
+        ICM20948_Read(&imu);
 
-    //     clock_gettime(CLOCK_MONOTONIC, &ts);
-    //     t1 = (uint64_t)ts.tv_sec * 1000000000ULL + ts.tv_nsec;
+        clock_gettime(CLOCK_MONOTONIC, &ts);
+        t1 = (uint64_t)ts.tv_sec * 1000000000ULL + ts.tv_nsec;
 
-    //     dt = (double)(t1 - t0) * 1e-9;
-    //     t0 = t1;
+        dt = (double)(t1 - t0) * 1e-9;
+        t0 = t1;
 
-    //     SCO_Task_Estimation(
-    //         &sco,
-    //         obs_0_r,
-    //         imu.accel,
-    //         obs_1_r,
-    //         imu.mag,
-    //         imu.gyro,
-    //         dt
-    //     );
+        SCO_Task_Estimation(
+            &sco,
+            obs_0_r,
+            imu.accel,
+            obs_1_r,
+            imu.mag,
+            imu.gyro,
+            dt
+        );
 
-    //     printf(
-    //         "%.6f %.6f %.6f %.6f "
-    //         "%.6f %.6f %.6f %.6f "
-    //         "%.6f %.6f %.6f "
-    //         "%.6f %.6f %.6f\n",
-    //         sco.q_quest.q[0],
-    //         sco.q_quest.q[1],
-    //         sco.q_quest.q[2],
-    //         sco.q_quest.q[3],
-    //         sco.q_est.q[0],
-    //         sco.q_est.q[1],
-    //         sco.q_est.q[2],
-    //         sco.q_est.q[3],
-    //         sco.rate.d[0],
-    //         sco.rate.d[1],
-    //         sco.rate.d[2],
-    //         sco.w_est.d[0],
-    //         sco.w_est.d[1],
-    //         sco.w_est.d[2]
-    //     );
+        printf(
+            "%.6f %.6f %.6f %.6f "
+            "%.6f %.6f %.6f %.6f "
+            "%.6f %.6f %.6f "
+            "%.6f %.6f %.6f\n",
+            sco.q_quest.q[0],
+            sco.q_quest.q[1],
+            sco.q_quest.q[2],
+            sco.q_quest.q[3],
+            sco.q_est.q[0],
+            sco.q_est.q[1],
+            sco.q_est.q[2],
+            sco.q_est.q[3],
+            sco.rate.d[0],
+            sco.rate.d[1],
+            sco.rate.d[2],
+            sco.w_est.d[0],
+            sco.w_est.d[1],
+            sco.w_est.d[2]
+        );
 
-    //     usleep(10000);
-    // }
+        usleep(10000);
+    }
 
     ICM20948_Close(&imu);
 
