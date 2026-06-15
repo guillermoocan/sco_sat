@@ -177,6 +177,7 @@ void ICM20948_Close(ICM20948_Type *imu);
 
 
 
+int ICM20948_CalibrateMag(ICM20948_Type *imu, const char *filename, uint32_t samples, uint32_t period_us);
 
 
 #endif

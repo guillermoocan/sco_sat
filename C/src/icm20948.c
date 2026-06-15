@@ -344,3 +344,57 @@ void ICM20948_Close(ICM20948_Type *imu)
     }
 }
 
+
+
+int ICM20948_CalibrateMag(ICM20948_Type *imu, const char *filename, uint32_t samples, uint32_t period_us)
+{
+    FILE *fp = fopen(filename, "w");
+
+    if(!fp)
+        return -1;
+
+    fprintf(fp, "mx,my,mz\n");
+
+    printf("\rCalculando calibracion...\n");
+
+    for(uint32_t i = 0; i < samples; i++)
+    {
+        if(ICM20948_ReadBankRegs(imu, 0, ICM20948_EXT_SLV_DATA_01, imu->mag_raw, 6))
+        {
+            fclose(fp);
+            return -1;
+        }
+
+        imu->mag_raw_16[0] = (int16_t)((imu->mag_raw[1] << 8) | imu->mag_raw[0]);
+        imu->mag_raw_16[1] = (int16_t)((imu->mag_raw[3] << 8) | imu->mag_raw[2]);
+        imu->mag_raw_16[2] = (int16_t)((imu->mag_raw[5] << 8) | imu->mag_raw[4]);
+
+        imu->mag[0] =  (float)imu->mag_raw_16[0] * imu->MAG_GAIN;
+        imu->mag[1] = -(float)imu->mag_raw_16[1] * imu->MAG_GAIN;
+        imu->mag[2] = -(float)imu->mag_raw_16[2] * imu->MAG_GAIN;
+
+        printf("%.3f,%.3f,%.3f\n",
+               imu->mag[0],
+               imu->mag[1],
+               imu->mag[2]);
+
+        fprintf(fp,
+                "%.8f,%.8f,%.8f\n",
+                imu->mag[0],
+                imu->mag[1],
+                imu->mag[2]);
+
+        usleep(period_us);
+
+        if(i % 100 == 0)
+            printf("\rMuestra: %u/%u\n", i, samples);
+    }
+
+    printf("\rMuestras: %u/%u\n", samples, samples);
+
+    fclose(fp);
+
+    return 0;
+}
+
+
