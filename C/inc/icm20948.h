@@ -176,14 +176,6 @@ void ICM20948_Calibrate(ICM20948_Type *imu);
 void ICM20948_Close(ICM20948_Type *imu);
 
 
-void ICM20948_Close(ICM20948_Type *imu)
-{
-    if(imu->fd >= 0)
-    {
-        close(imu->fd);
-        imu->fd = -1;
-    }
-}
 
 
 
