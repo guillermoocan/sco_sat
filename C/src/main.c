@@ -21,13 +21,13 @@ int main(void)
 
     ICM20948_Calibrate(&imu);
 
-    ICM20948_CalibrateMag(&imu, "../data/calibration.csv", 1000, 10000);
+    // ICM20948_CalibrateMag(&imu, "../data/calibration.csv", 1000, 10000);
 
-    if(system("python3 ../data/calibration_python.py ../data/calibration.csv")) 
-    { 
-        printf("Error ejecutando calibracion_python.py\n"); 
-        return -1; 
-    }
+    // if(system("python3 ../data/calibration_python.py ../data/calibration.csv")) 
+    // { 
+    //     printf("Error ejecutando calibracion_python.py\n"); 
+    //     return -1; 
+    // }
 
 
 
