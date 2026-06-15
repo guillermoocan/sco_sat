@@ -1,2 +1,0 @@
-/usr/bin/ar qc libmpu6050.a CMakeFiles/mpu6050.dir/src/mpu6050.c.o
-/usr/bin/ranlib libmpu6050.a
