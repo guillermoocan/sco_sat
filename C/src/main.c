@@ -2,80 +2,153 @@
 
 int main(void)
 {
-    MPU6050_Type mpu;
-    QMC5883L_Type magn;
+    ICM20948_Type imu;
     SCO sco;
 
     float obs_0_r[3] = {0.0f, 0.0f, 1.0f};
-    float obs_1_r[3] = {0.315f   ,0.013f  ,-0.255f};
+    float obs_1_r[3] = {0.315f, 0.013f, -0.255f};
 
     uint64_t t0, t1;
     double dt;
 
-    if (MPU6050_Init(&mpu, "/dev/i2c-1", MPU6050_ADDRESS_AD0_LOW, MPU6050_ACCEL_FS_2, MPU6050_GYRO_FS_250))
+    if(ICM20948_Init(&imu, "/dev/i2c-1", ICM20948_ADDRESS_AD0_HIGH))
     {
-        printf("MPU6050 no detectado\n");
+        printf("ICM20948 no detectado\n");
         return -1;
     }
 
-    if (QMC5883L_Init(&magn, "/dev/i2c-1", QMC5883L_ADDRESS, QMC5883L_MODE_CONTINUOUS, QMC5883L_ODR_200HZ, QMC5883L_FULL_SCALE_2G, QMC5883L_OVERSAMPLE_512))
-    {
-        printf("QMC5883L no detectado\n");
-        return -1;
-    }
+    printf("ICM20948 detectado\n");
 
-    printf("Sensores detectados\n");
+    ICM20948_CalibrateAccel(&imu);
+    ICM20948_CalibrateGyro(&imu);
 
-    MPU6050_Calibration(&mpu);
+    ICM20948_Read(&imu);
 
-    MPU6050_Read(&mpu);
-    QMC5883L_Read(&magn);
-
-    SCO_Task_Initialization(&sco, obs_0_r, mpu.accel, obs_1_r, magn.field, mpu.gyro);
+    SCO_Task_Initialization(
+        &sco,
+        obs_0_r,
+        imu.accel,
+        obs_1_r,
+        imu.mag,
+        imu.gyro
+    );
 
     struct timespec ts;
 
     clock_gettime(CLOCK_MONOTONIC, &ts);
     t0 = (uint64_t)ts.tv_sec * 1000000000ULL + ts.tv_nsec;
 
-    while (1)
+    while(1)
     {
-        MPU6050_Read(&mpu);
-        QMC5883L_Read(&magn);
+        ICM20948_Read(&imu);
 
-        clock_gettime(CLOCK_MONOTONIC, &ts);
-        t1 = (uint64_t)ts.tv_sec * 1000000000ULL + ts.tv_nsec;
-
-        dt = (double)(t1 - t0) * 1e-9;
-
-        t0 = t1;
-
-        SCO_Task_Estimation(&sco, obs_0_r, mpu.accel, obs_1_r, magn.field, mpu.gyro, dt);
-
-        printf("%.6f %.6f %.6f %.6f %.6f %.6f %.6f %.6f %.6f %.6f %.6f %.6f %.6f %.6f\n",
-        sco.q_quest.q[0],
-        sco.q_quest.q[1],
-        sco.q_quest.q[2],
-        sco.q_quest.q[3],
-        sco.q_est.q[0],
-        sco.q_est.q[1],
-        sco.q_est.q[2],
-        sco.q_est.q[3],
-        sco.rate.d[0],
-        sco.rate.d[1],
-        sco.rate.d[2],
-        sco.w_est.d[0],
-        sco.w_est.d[1],
-        sco.w_est.d[2]);
+        printf(
+            "A %.3f %.3f %.3f | "
+            "G %.3f %.3f %.3f | "
+            "M %.3f %.3f %.3f\n",
+            imu.accel[0],
+            imu.accel[1],
+            imu.accel[2],
+            imu.gyro[0],
+            imu.gyro[1],
+            imu.gyro[2],
+            imu.mag[0],
+            imu.mag[1],
+            imu.mag[2]
+        );
 
         usleep(10000);
     }
 
-    MPU6050_Close(&mpu);
-    QMC5883L_Close(&magn);
+    ICM20948_Close(&imu);
 
     return 0;
 }
+
+
+
+
+
+
+
+// #include "main.h"
+
+// int main(void)
+// {
+//     MPU6050_Type mpu;
+//     QMC5883L_Type magn;
+//     SCO sco;
+
+//     float obs_0_r[3] = {0.0f, 0.0f, 1.0f};
+//     float obs_1_r[3] = {0.315f   ,0.013f  ,-0.255f};
+
+//     uint64_t t0, t1;
+//     double dt;
+
+//     if (MPU6050_Init(&mpu, "/dev/i2c-1", MPU6050_ADDRESS_AD0_LOW, MPU6050_ACCEL_FS_2, MPU6050_GYRO_FS_250))
+//     {
+//         printf("MPU6050 no detectado\n");
+//         return -1;
+//     }
+
+//     if (QMC5883L_Init(&magn, "/dev/i2c-1", QMC5883L_ADDRESS, QMC5883L_MODE_CONTINUOUS, QMC5883L_ODR_200HZ, QMC5883L_FULL_SCALE_2G, QMC5883L_OVERSAMPLE_512))
+//     {
+//         printf("QMC5883L no detectado\n");
+//         return -1;
+//     }
+
+//     printf("Sensores detectados\n");
+
+//     MPU6050_Calibration(&mpu);
+
+//     MPU6050_Read(&mpu);
+//     QMC5883L_Read(&magn);
+
+//     SCO_Task_Initialization(&sco, obs_0_r, mpu.accel, obs_1_r, magn.field, mpu.gyro);
+
+//     struct timespec ts;
+
+//     clock_gettime(CLOCK_MONOTONIC, &ts);
+//     t0 = (uint64_t)ts.tv_sec * 1000000000ULL + ts.tv_nsec;
+
+//     while (1)
+//     {
+//         MPU6050_Read(&mpu);
+//         QMC5883L_Read(&magn);
+
+//         clock_gettime(CLOCK_MONOTONIC, &ts);
+//         t1 = (uint64_t)ts.tv_sec * 1000000000ULL + ts.tv_nsec;
+
+//         dt = (double)(t1 - t0) * 1e-9;
+
+//         t0 = t1;
+
+//         SCO_Task_Estimation(&sco, obs_0_r, mpu.accel, obs_1_r, magn.field, mpu.gyro, dt);
+
+//         printf("%.6f %.6f %.6f %.6f %.6f %.6f %.6f %.6f %.6f %.6f %.6f %.6f %.6f %.6f\n",
+//         sco.q_quest.q[0],
+//         sco.q_quest.q[1],
+//         sco.q_quest.q[2],
+//         sco.q_quest.q[3],
+//         sco.q_est.q[0],
+//         sco.q_est.q[1],
+//         sco.q_est.q[2],
+//         sco.q_est.q[3],
+//         sco.rate.d[0],
+//         sco.rate.d[1],
+//         sco.rate.d[2],
+//         sco.w_est.d[0],
+//         sco.w_est.d[1],
+//         sco.w_est.d[2]);
+
+//         usleep(10000);
+//     }
+
+//     MPU6050_Close(&mpu);
+//     QMC5883L_Close(&magn);
+
+//     return 0;
+// }
 
 
 

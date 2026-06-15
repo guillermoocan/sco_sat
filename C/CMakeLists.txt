@@ -8,6 +8,7 @@ add_executable(sat
     src/main.c
     src/mpu6050.c
     src/qmc5883l.c
+    src/icm20948.c
     src/sco.c
 )
 

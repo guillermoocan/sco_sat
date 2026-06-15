@@ -13,6 +13,7 @@
 
     #include "mpu6050.h"
     #include "qmc5883l.h"
+    #include "icm20948.h"
     #include "sco.h"
 
 #endif
