@@ -125,7 +125,7 @@ int ICM20948_Init(ICM20948_Type *imu, const char *i2c_device, uint8_t address)
     imu->MAG_GAIN   = 0.15f;
 
     memcpy(imu->mag_bias, b, sizeof(b));
-    memcpy(imu->mag_cov, A sizeof(A));
+    memcpy(imu->mag_cov, A, sizeof(A));
 
     imu->fd = open(i2c_device, O_RDWR);
 
