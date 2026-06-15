@@ -6,6 +6,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <fcntl.h>
+#include <string.h>
 #include <linux/i2c-dev.h>
 #include <sys/ioctl.h>
 #include <math.h>
