@@ -19,8 +19,7 @@ int main(void)
 
     printf("ICM20948 detectado\n");
 
-    ICM20948_CalibrateAccel(&imu);
-    ICM20948_CalibrateGyro(&imu);
+    ICM20948_Calibrate(&imu);
 
     ICM20948_Read(&imu);
 
