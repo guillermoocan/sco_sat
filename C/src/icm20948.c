@@ -1,6 +1,19 @@
 #include "icm20948.h"
 
 
+
+static float mag_bias[3] = {
+    46.143736f,
+    37.240751f,
+    -23.095304f
+};
+
+static float mag_cov[3][3] = {
+    { 0.992534f,  0.008248f, -0.012997f},
+    { 0.008248f,  1.019192f, -0.017242f},
+    {-0.012997f, -0.017242f,  0.982020f}
+};
+
 static int ICM20948_WriteReg(ICM20948_Type *imu, uint8_t reg, uint8_t value)
 {
     uint8_t buffer[2] = {reg, value};
@@ -111,21 +124,8 @@ int ICM20948_Init(ICM20948_Type *imu, const char *i2c_device, uint8_t address)
     imu->GYRO_GAIN  = 1.0f / 131.0f;
     imu->MAG_GAIN   = 0.15f;
 
-    imu->mag_bias[0] = -23.2753f;
-    imu->mag_bias[1] =  62.7465f;
-    imu->mag_bias[2] = -46.5334f;
-
-    imu->mag_cov[0][0] = 1.0338f;
-    imu->mag_cov[0][1] = 0.0036f;
-    imu->mag_cov[0][2] = 0.0531f;
-
-    imu->mag_cov[1][0] = 0.0036f;
-    imu->mag_cov[1][1] = 0.9796f;
-    imu->mag_cov[1][2] = -0.0092f;
-
-    imu->mag_cov[2][0] = 0.0531f;
-    imu->mag_cov[2][1] = -0.0092f;
-    imu->mag_cov[2][2] = 0.9903f;
+    memcpy(imu->mag_bias, b, sizeof(b));
+    memcpy(imu->mag_cov, A sizeof(A));
 
     imu->fd = open(i2c_device, O_RDWR);
 
