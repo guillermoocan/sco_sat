@@ -107,7 +107,7 @@
 int main(void)
 {
     MPU6050_Type mpu;
-    QMC5883L_Type magn;
+    QMC5883L_Type mag;
     SCO sco;
 
     float obs_0_r[3] = {0.0f, 0.0f, 1.0f};
