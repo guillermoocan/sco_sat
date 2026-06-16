@@ -14,7 +14,7 @@ int main(void)
     if(ICM20948_Init(&imu, "/dev/i2c-1", ICM20948_ADDRESS_AD0_HIGH))
     {
         printf("ICM20948 no detectado\n");
-        //return -1;
+        return -1;
     }
 
     printf("ICM20948 detectado\n");
