@@ -128,6 +128,7 @@ int ICM20948_Init(ICM20948_Type *imu, const char *i2c_device, uint8_t address)
     memcpy(imu->mag_cov, A, sizeof(A));
 
     uint8_t whoami;
+    uint8_t reg = 0x00;
 
     imu->fd = open(i2c_device, O_RDWR);
 
