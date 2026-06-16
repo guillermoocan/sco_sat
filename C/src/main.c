@@ -111,7 +111,7 @@ int main(void)
     SCO sco;
 
     float obs_0_r[3] = {0.0f, 0.0f, 1.0f};
-    float obs_1_r[3] = {0.315f   ,0.013f  ,-0.255f};
+    float obs_1_r[3] = {26.9282f,-1.8438f,-28.6434f};
 
     uint64_t t0, t1;
     double dt;
