@@ -112,8 +112,6 @@ SCO_Flag SCO_Task_Estimation(SCO * sco, float * obs_0_r,float * obs_0_b,float * 
 	Vector_Scale(&sco->rate, DEG2RAD, &sco->rate);
     Vector_Adjustment(&sco->rate);
 
-
-
 	if(sco->enable & SCO_ENABLE_TRIAD){
 
 		if(SCO_TRIAD(sco))
