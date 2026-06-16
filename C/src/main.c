@@ -139,7 +139,7 @@ int main(void)
     MPU6050_Read(&imu);
     QMC5883L_Read(&mag);
 
-    SCO_Task_Initialization(&sco, obs_0_r, mpu.accel, obs_1_r, magn.field, mpu.gyro);
+    SCO_Task_Initialization(&sco, obs_0_r, imu.accel, obs_1_r, mag.field, imu.gyro);
 
     struct timespec ts;
 
