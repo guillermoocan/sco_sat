@@ -154,6 +154,7 @@ void Vector_Cross(const Vector *a, const Vector *b, Vector *out);
 float Vector_Norm(const Vector *v);
 void Vector_Normalize(Vector *v);
 void Vector_Copy(const Vector * in, Vector * out);
+void Vector_Adjustment(Vector * v);
 
 
 void Quaternion_Set(Quaternion *q, float q0, float q1, float q2, float q3);
