@@ -127,9 +127,6 @@ int ICM20948_Init(ICM20948_Type *imu, const char *i2c_device, uint8_t address)
     memcpy(imu->mag_bias, b, sizeof(b));
     memcpy(imu->mag_cov, A, sizeof(A));
 
-    uint8_t whoami;
-    uint8_t reg = 0x00;
-
     imu->fd = open(i2c_device, O_RDWR);
 
     if(imu->fd < 0)
@@ -138,21 +135,14 @@ int ICM20948_Init(ICM20948_Type *imu, const char *i2c_device, uint8_t address)
     if(ioctl(imu->fd, I2C_SLAVE, address) < 0)
         return -1;
 
-    write(imu->fd, &reg, 1);
-    read(imu->fd, &whoami, 1);
+    uint8_t whoami;
 
-    printf("WHOAMI = 0x%02X\n", whoami);
-
-    
-    printf("ICM20948 found\n");
     if(ICM20948_ReadBankRegs(imu, 0, ICM20948_WHO_AM_I, &whoami, 1))
         return -1;
 
-    printf("%x\n", whoami);
     if(whoami != ICM20948_CHIP_ID)
         return -1;
 
-    printf("ICM20948 found\n");
     if(ICM20948_RegConfig(imu, 0, ICM20948_PWR_MGMT_1, ICM20948_PWR_MGMT_1_RESET, 1))
         return -1;
 
