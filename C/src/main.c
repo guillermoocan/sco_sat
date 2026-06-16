@@ -106,7 +106,7 @@
 
 int main(void)
 {
-    MPU6050_Type mpu;
+    MPU6050_Type imu;
     QMC5883L_Type mag;
     SCO sco;
 
@@ -134,10 +134,10 @@ int main(void)
     
     printf("Sensores detectados\n");
 
-    MPU6050_Calibration(&mpu);
+    MPU6050_Calibration(&imu);
 
-    MPU6050_Read(&mpu);
-    QMC5883L_Read(&magn);
+    MPU6050_Read(&imu);
+    QMC5883L_Read(&mag);
 
     SCO_Task_Initialization(&sco, obs_0_r, mpu.accel, obs_1_r, magn.field, mpu.gyro);
 
@@ -148,8 +148,8 @@ int main(void)
 
     while (1)
     {
-        MPU6050_Read(&mpu);
-        QMC5883L_Read(&magn);
+        MPU6050_Read(&imu);
+        QMC5883L_Read(&mag);
 
         clock_gettime(CLOCK_MONOTONIC, &ts);
         t1 = (uint64_t)ts.tv_sec * 1000000000ULL + ts.tv_nsec;
@@ -158,7 +158,7 @@ int main(void)
 
         t0 = t1;
 
-        SCO_Task_Estimation(&sco, obs_0_r, mpu.accel, obs_1_r, magn.field, mpu.gyro, dt);
+        SCO_Task_Estimation(&sco, obs_0_r, mpu.accel, obs_1_r, mag.field, mpu.gyro, dt);
 
         printf("%.6f %.6f %.6f %.6f %.6f %.6f %.6f %.6f %.6f %.6f %.6f %.6f %.6f %.6f\n",
         sco.q_quest.q[0],
@@ -179,8 +179,8 @@ int main(void)
         usleep(10000);
     }
 
-    MPU6050_Close(&mpu);
-    QMC5883L_Close(&magn);
+    MPU6050_Close(&imu);
+    QMC5883L_Close(&mag);
 
     return 0;
 }
