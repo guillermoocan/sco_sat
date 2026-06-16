@@ -135,6 +135,11 @@ int ICM20948_Init(ICM20948_Type *imu, const char *i2c_device, uint8_t address)
     if(ioctl(imu->fd, I2C_SLAVE, address) < 0)
         return -1;
 
+    write(imu->fd, &reg, 1);
+    read(imu->fd, &whoami, 1);
+
+    printf("WHOAMI = 0x%02X\n", whoami);
+
     uint8_t whoami;
     printf("ICM20948 found\n");
     if(ICM20948_ReadBankRegs(imu, 0, ICM20948_WHO_AM_I, &whoami, 1))
