@@ -103,8 +103,16 @@ SCO_Flag SCO_Task_Estimation(SCO * sco, float * obs_0_r,float * obs_0_b,float * 
 	Vector_Normalize(&sco->set.obs[1].r);
 	Vector_Normalize(&sco->set.obs[1].b);
 
+    Vector_Adjustment(&sco->set.obs[0].r);
+    Vector_Adjustment(&sco->set.obs[0].b);
+    Vector_Adjustment(&sco->set.obs[1].r);
+    Vector_Adjustment(&sco->set.obs[1].b);
+
 	Vector_Set(&sco->rate,rate);
 	Vector_Scale(&sco->rate, DEG2RAD, &sco->rate);
+    Vector_Adjustment(&sco->rate);
+
+
 
 	if(sco->enable & SCO_ENABLE_TRIAD){
 
@@ -143,8 +151,14 @@ SCO_Flag SCO_Task_Initialization(SCO * sco,float * obs_0_r,float * obs_0_b,float
 	Vector_Normalize(&sco->set.obs[1].r);
 	Vector_Normalize(&sco->set.obs[1].b);
 
+    Vector_Adjustment(&sco->set.obs[0].r);
+    Vector_Adjustment(&sco->set.obs[0].b);
+    Vector_Adjustment(&sco->set.obs[1].r);
+    Vector_Adjustment(&sco->set.obs[1].b);
+
 	Vector_Set(&sco->rate,rate);
 	Vector_Scale(&sco->rate, DEG2RAD, &sco->rate);
+    Vector_Adjustment(&sco->rate);
 
 	Vector_Copy(&sco->rate,&sco->w_est);
 
@@ -1175,4 +1189,18 @@ void Quaternion_Copy(const Quaternion * in, Quaternion * out){
 }
 
 
+
+void Vector_Adjustment(Vector * v){
+
+    float w[3];
+
+    w[0] = v->d[0];
+    w[1] = v->d[1];
+    w[2] = v->d[2];
+
+    v->d[0] = -w[0];
+    v->d[1] = -w[1];
+    v->d[2] = w[2];
+
+}
 
