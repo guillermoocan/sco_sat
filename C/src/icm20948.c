@@ -127,6 +127,8 @@ int ICM20948_Init(ICM20948_Type *imu, const char *i2c_device, uint8_t address)
     memcpy(imu->mag_bias, b, sizeof(b));
     memcpy(imu->mag_cov, A, sizeof(A));
 
+    uint8_t whoami;
+
     imu->fd = open(i2c_device, O_RDWR);
 
     if(imu->fd < 0)
@@ -140,7 +142,7 @@ int ICM20948_Init(ICM20948_Type *imu, const char *i2c_device, uint8_t address)
 
     printf("WHOAMI = 0x%02X\n", whoami);
 
-    uint8_t whoami;
+    
     printf("ICM20948 found\n");
     if(ICM20948_ReadBankRegs(imu, 0, ICM20948_WHO_AM_I, &whoami, 1))
         return -1;
