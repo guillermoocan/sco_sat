@@ -80,7 +80,7 @@ SCO_Flag SCO_Init(SCO *sco)
 	sco->set.obs[0].R = 5e-6f;
 	sco->set.obs[1].R = 1e-5f;
 
-    sco->Qw = 1.0e-4f;
+    sco->Qw = 1.0e-2f;
     sco->Qb = 1.0e-4f;
     sco->Rg = 1.0e-3f;
 
