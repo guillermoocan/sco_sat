@@ -158,7 +158,7 @@ int main(void)
 
         t0 = t1;
 
-        SCO_Task_Estimation(&sco, obs_0_r, mpu.accel, obs_1_r, mag.field, mpu.gyro, dt);
+        SCO_Task_Estimation(&sco, obs_0_r, imu.accel, obs_1_r, mag.field, imu.gyro, dt);
 
         printf("%.6f %.6f %.6f %.6f %.6f %.6f %.6f %.6f %.6f %.6f %.6f %.6f %.6f %.6f\n",
         sco.q_quest.q[0],
