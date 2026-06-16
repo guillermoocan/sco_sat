@@ -143,6 +143,7 @@ int ICM20948_Init(ICM20948_Type *imu, const char *i2c_device, uint8_t address)
     if(whoami != ICM20948_CHIP_ID)
         return -1;
 
+    printf("ICM20948 found\n");
     if(ICM20948_RegConfig(imu, 0, ICM20948_PWR_MGMT_1, ICM20948_PWR_MGMT_1_RESET, 1))
         return -1;
 
