@@ -140,6 +140,7 @@ int ICM20948_Init(ICM20948_Type *imu, const char *i2c_device, uint8_t address)
     if(ICM20948_ReadBankRegs(imu, 0, ICM20948_WHO_AM_I, &whoami, 1))
         return -1;
 
+    printf("%x\n", whoami);
     if(whoami != ICM20948_CHIP_ID)
         return -1;
 
