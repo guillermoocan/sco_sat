@@ -1195,7 +1195,7 @@ void Vector_Adjustment(Vector * v){
     w[1] = v->d[1];
     w[2] = v->d[2];
 
-    v->d[0] = -w[1];
+    v->d[0] = w[1];
     v->d[1] = w[0];
     v->d[2] = w[2];
 
