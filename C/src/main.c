@@ -157,7 +157,7 @@ int main(void)
         dt = (double)(t1 - t0) * 1e-9;
 
         t0 = t1;
-
+        
         SCO_Task_Estimation(&sco, obs_0_r, imu.accel, obs_1_r, mag.field, imu.gyro, dt);
 
         printf("%.6f %.6f %.6f %.6f %.6f %.6f %.6f %.6f %.6f %.6f %.6f %.6f %.6f %.6f\n",
